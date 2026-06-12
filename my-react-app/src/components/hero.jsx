@@ -1,5 +1,5 @@
 import Home from "./home";
-function Hero(company)  {
+function Hero({company})  {
   return <h1>this is a {company} </h1>
 }
 

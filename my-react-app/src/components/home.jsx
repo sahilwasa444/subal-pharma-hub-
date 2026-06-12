@@ -1,15 +1,30 @@
-import Hero from "./hero.jsx"
-import Feature from "./featureproduct.jsx"
-import Category from "./categories.jsx";
 import { useState } from "react";
+import Hero from "./hero.jsx";
+import Feature from "./featureproduct.jsx";
+import Category from "./categories.jsx";
+
 function Home() {
-    const [companyname,setcompanyname] =useState("subal pharma");
-    return (
-        <div className="page-component">
-            <Hero company={companyname}/>
-            <Feature />
-        </div>
-    );
+  const [companyName, setCompanyName] = useState("Subal Pharma");
+
+  function handleChange(event) {
+    setCompanyName(event.target.value);
+  }
+
+  return (
+    <div className="page-component">
+      <input
+        type="text"
+        value={companyName}
+        onChange={handleChange}
+      />
+
+      <Hero company={companyName} />
+      
+      <Category />
+      <Feature />
+      
+    </div>
+  );
 }
 
 export default Home;
