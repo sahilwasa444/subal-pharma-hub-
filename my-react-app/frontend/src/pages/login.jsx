@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
+import api from "../services/api";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 function Login() {
   const { login } = useContext(AuthContext);
   const [formData, setFormData] = useState({
@@ -23,12 +26,15 @@ function Login() {
 
     event.preventDefault();
 
-    console.log(formData);
-
-    alert("Login Successful");
-
+    try {
+      const response=await api.post("/auth/login",formData);
+      login(response.data.user);
+    localStorage.setItem("token",response.data.token);
+    alert("login succes");
+    } catch(error){
+      alert(error.response.data.message);
+    }
   }
-
   return (
     <div>
 
@@ -67,5 +73,5 @@ function Login() {
     </div>
   );
 }
-
+}
 export default Login;
