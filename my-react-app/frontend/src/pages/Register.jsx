@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import api from "../services/api";
 function Register() {
 
   const [formData, setFormData] = useState({
@@ -21,23 +21,14 @@ function Register() {
   }
 
   function handleSubmit(event) {
-
-    event.preventDefault();
-
-    if (formData.password !== formData.confirmPassword) {
-      alert("Passwords do not match");
-      return;
+    try {
+      const response=await.api.post(
+        "/auth/register",formData
+      );
+      alert("response.data.message");
+    } catch(error){
+      alert(error);
     }
-
-    if (formData.password.length < 8) {
-      alert("Password must be at least 8 characters");
-      return;
-    }
-
-    console.log(formData);
-
-    alert("Registration Successful");
-
   }
 
   return (
