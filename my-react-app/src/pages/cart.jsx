@@ -3,11 +3,16 @@ import { CartContext } from "../context/CartContext";
 
 function Cart() {
 
-  const { cart, removeFromCart } = useContext(CartContext);
-
+  const {
+  cart,
+  removeFromCart,
+  increaseQuantity,
+  decreaseQuantity
+} = useContext(CartContext);
   const totalPrice = cart.reduce(
-    (total, item) => total + item.price,
-    0
+  (total, item) =>
+    total + item.price * item.quantity,
+  0
   );
 
   return (
@@ -22,20 +27,32 @@ function Cart() {
           {cart.map((item) => (
             <div key={item.id}>
 
-              <h3>{item.name}</h3>
+  <h3>{item.name}</h3>
 
-              <p>Price: ₹{item.price}</p>
+  <p>Price: ₹{item.price}</p>
 
-              <button
-                onClick={() =>
-                  removeFromCart(item.id)
-                }
-              >
-                Remove
-              </button>
+  <p>Quantity: {item.quantity}</p>
 
-              <hr />
-            </div>
+  <button
+    onClick={() => decreaseQuantity(item.id)}
+  >
+    -
+  </button>
+
+  <button
+    onClick={() => increaseQuantity(item.id)}
+  >
+    +
+  </button>
+
+  <button
+    onClick={() => removeFromCart(item.id)}>
+        Remove
+       </button>
+
+       <hr />
+
+      </div>
           ))}
 
           <h2>Total: ₹{totalPrice}</h2>
