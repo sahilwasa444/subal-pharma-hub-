@@ -8,13 +8,15 @@ import Cart from "./pages/Cart";
 import Order from "./pages/Order";
 import About from "./pages/About";
 import Navbar from './components/Navbar';
-
+import Login from './pages/login';
+import Register from './pages/Register';
 function App() {
   return (
     <BrowserRouter>
     <Navbar />
       <Routes>
-
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/" element={<Home />} />
 
         <Route path="/products" element={<Product />} />
