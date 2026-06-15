@@ -13,6 +13,15 @@ function HandleChange(event) {
     setProduct({
         ...product,[name]:value
     });
+async function handlesubmit(event){
+    event.preventDefault();
+    try {
+        await api.post("/products",product);
+        alert("product added");
+    } catch (error) {
+        alert(error.message);
+    }
+}
    return (
     <div>
         <input
