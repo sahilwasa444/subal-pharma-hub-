@@ -20,14 +20,16 @@ function Register() {
 
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
+    event.preventDefault();
     try {
-      const response=await.api.post(
-        "/auth/register",formData
+      const response = await api.post(
+        "/auth/register",
+        formData
       );
-      alert("response.data.message");
-    } catch(error){
-      alert(error);
+      alert(response.data.message);
+    } catch (error) {
+      alert(error?.response?.data?.message || error.message || error);
     }
   }
 

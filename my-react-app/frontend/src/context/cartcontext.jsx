@@ -69,6 +69,10 @@ function CartProvider({ children }) {
 
 }
 
+  function removeFromCart(id) {
+    setCart(cart.filter((item) => item.id !== id));
+  }
+
   return (
     <CartContext.Provider
       value={{

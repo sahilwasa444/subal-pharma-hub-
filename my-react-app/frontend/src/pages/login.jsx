@@ -1,9 +1,7 @@
-import { useState } from "react";
-import { useContext } from "react";
+import { useState, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import api from "../services/api";
-import { useContext } from "react";
-import { AuthContext } from "../context/AuthContext";
+
 function Login() {
   const { login } = useContext(AuthContext);
   const [formData, setFormData] = useState({
@@ -22,19 +20,19 @@ function Login() {
 
   }
 
-  function handleSubmit(event) {
-
+  async function handleSubmit(event) {
     event.preventDefault();
 
     try {
-      const response=await api.post("/auth/login",formData);
+      const response = await api.post("/auth/login", formData);
       login(response.data.user);
-    localStorage.setItem("token",response.data.token);
-    alert("login succes");
-    } catch(error){
-      alert(error.response.data.message);
+      localStorage.setItem("token", response.data.token);
+      alert("login success");
+    } catch (error) {
+      alert(error?.response?.data?.message || "Login failed. Check your input and try again.");
     }
   }
+
   return (
     <div>
 
@@ -73,5 +71,5 @@ function Login() {
     </div>
   );
 }
-}
+
 export default Login;
