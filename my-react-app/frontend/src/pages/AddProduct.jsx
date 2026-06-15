@@ -24,6 +24,15 @@ async function handlesubmit(event){
 }
    return (
     <div>
+    <form onSubmit={handlesubmit}>
+        <input 
+        type="text"
+        name="name"
+        value={product.name}
+        onChange={handlechange}/>
+        <button type="submit">
+            add prduct</button>
+    </form>
         <input
   type="text"
   name="name"
@@ -72,5 +81,5 @@ async function handlesubmit(event){
 />
      
     </div>
-   )
+   );
 }
