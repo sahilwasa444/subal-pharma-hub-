@@ -1,52 +1,31 @@
-import { useState } from "react";
+import { useState,useEffect, useContext } from "react";
 import ProductCard from "../components/ProductCard";
-
+import api from "../services/api";
+import { CartContext } from "../context/cartcontext";
 function Product() {
 
-  const [search, setSearch] = useState("");
+  const [search, setsearch]=useState("");
+  const [products,setproducts] = useState([]);
+  const {cart,addToCart} =useContext(CartContext);
 
-  const [cart, setCart] = useState([]);
-
-  const medicines = [
-    {
-      id: 1,
-      name: "Dolo 650",
-      price: 30,
-      company: "Micro Labs",
-      expiry: "12/2027"
-    },
-    {
-      id: 2,
-      name: "Paracetamol",
-      price: 50,
-      company: "Cipla",
-      expiry: "10/2028"
-    },
-    {
-      id: 3,
-      name: "Vitamin C",
-      price: 120,
-      company: "HealthCare",
-      expiry: "05/2029"
-    },
-    {
-      id: 4,
-      name: "Crocin",
-      price: 40,
-      company: "GSK",
-      expiry: "11/2028"
+  async function fetchProducts(){
+    try{
+      const response=await api.get("/products");
+      setproducts(response.data);
+    } catch(error){
+      console.log(error);
     }
-  ];
+  }
+   
+  useEffect(() => {
+    fetchProducts();
+  }, []);
 
   function handleChange(event) {
     setSearch(event.target.value);
   }
 
-  function addToCart(medicine) {
-    setCart([...cart, medicine]);
-  }
-
-  const filteredMedicines = medicines.filter((medicine) =>
+  const filteredMedicines = products.filter((medicine) =>
     medicine.name.toLowerCase().includes(search.toLowerCase())
   );
 
@@ -68,7 +47,7 @@ function Product() {
 
       {filteredMedicines.map((medicine) => (
         <ProductCard
-          key={medicine.id}
+          key={medicine._id}
           name={medicine.name}
           price={medicine.price}
           company={medicine.company}

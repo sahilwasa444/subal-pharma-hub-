@@ -10,7 +10,19 @@ const getProducts = async (req, res) => {
     });
   }
 };
+const getProductById = async (
+  req,
+  res
+) => {
 
+  const product =
+    await Product.findById(
+      req.params.id
+    );
+
+  res.json(product);
+
+};
 const createProduct = async (req, res) => {
   try {
     const product = await Product.create(req.body);
