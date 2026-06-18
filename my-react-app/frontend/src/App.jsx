@@ -7,9 +7,11 @@ import Product from "./pages/Product";
 import Cart from "./pages/Cart";
 import Order from "./pages/Order";
 import About from "./pages/About";
+import ProductDetails from "./pages/ProductDetails";
 import Navbar from './components/Navbar';
 import Login from './pages/login';
 import Register from './pages/Register';
+import ProtectedRoute from "./components/ProtectedRoute";
 function App() {
   return (
     <BrowserRouter>
@@ -24,8 +26,12 @@ function App() {
           />
         <Route path="/products" element={<Product />} />
 
-        <Route path="/cart" element={<Cart />} />
-
+        <Route path="/cart" element={
+            <ProtectedRoute>
+              <Cart />
+            </ProtectedRoute>
+            }
+        />
         <Route path="/orders" element={<Order />} />
 
         <Route path="/about" element={<About />} />
