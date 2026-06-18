@@ -1,26 +1,21 @@
-function ProductCard({
-  name,
-  price,
-  company,
-  expiry,
-  onAddToCart
-}) {
+import "../css/components/ProductCard.css";
+
+function ProductCard({ name, price, company, expiry, onAddToCart }) {
   return (
-    <div>
-      <h2>{name}</h2>
+    <article className="product-card">
+      <span className="product-card__tag">Medicine</span>
+      <h2 className="product-card__title">{name}</h2>
 
-      <p>Price: ₹{price}</p>
+      <div className="product-card__details">
+        <p className="product-card__price">Rs. {price}</p>
+        <p>Company: {company}</p>
+        <p>Expiry: {expiry}</p>
+      </div>
 
-      <p>Company: {company}</p>
-
-      <p>Expiry: {expiry}</p>
-
-      <button onClick={onAddToCart}>
+      <button className="btn btn--primary product-card__button" onClick={onAddToCart}>
         Add To Cart
       </button>
-
-      <hr />
-    </div>
+    </article>
   );
 }
 

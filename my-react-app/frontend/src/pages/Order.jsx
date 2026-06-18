@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import api from "../services/api";
+import "../css/pages/orders.css";
 
 function Orders() {
   const [orders, setOrders] = useState([]);
@@ -23,20 +25,47 @@ function Orders() {
   }, []);
 
   return (
-    <div>
-      <h1>My Orders</h1>
+    <div className="page orders-page">
+      <section className="section__header">
+        <div>
+          <p className="eyebrow">Orders</p>
+          <h1 className="hero-title">My orders</h1>
+          <p className="page-subtitle">
+            Your recent purchases are shown here in a simple, easy-to-scan list.
+          </p>
+        </div>
+
+        <span className="badge">{orders.length} order(s)</span>
+      </section>
 
       {orders.length === 0 ? (
-        <p>No orders yet.</p>
+        <div className="card empty-state">
+          <h2 className="section-title">No orders yet</h2>
+          <p className="page-subtitle">
+            Once you place an order, it will appear here for quick review.
+          </p>
+          <Link className="btn btn--primary" to="/products">
+            Browse products
+          </Link>
+        </div>
       ) : (
-        orders.map((order) => (
-          <div key={order._id}>
-            <h3>Order ID: {order._id}</h3>
-            <p>Total: Rs.{order.totalPrice}</p>
-            <p>Status: {order.status}</p>
-            <hr />
-          </div>
-        ))
+        <div className="orders-grid">
+          {orders.map((order) => (
+            <article className="card order-card" key={order._id}>
+              <div className="order-card__top">
+                <div className="order-card__id">Order ID: {order._id}</div>
+                <span className="order-status">{order.status}</span>
+              </div>
+
+              <div className="order-card__meta">
+                <span>Total: Rs. {order.totalPrice}</span>
+                <span>
+                  Placed on: {new Date(order.createdAt).toLocaleDateString()}
+                </span>
+              </div>
+            </article>
+          ))}
+        </div>
       )}
     </div>
   );

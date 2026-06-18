@@ -2,6 +2,7 @@ import { useState,useEffect, useContext } from "react";
 import ProductCard from "../components/ProductCard";
 import api from "../services/api";
 import { CartContext } from "../context/cartcontext";
+import "../css/pages/products.css";
 function Product() {
 
   const [search, setSearch] = useState("");
@@ -36,42 +37,66 @@ function Product() {
   );
 
   return (
-    <div>
+    <div className="page products-page">
+      <section className="section__header">
+        <div>
+          <p className="eyebrow">Catalog</p>
+          <h1 className="hero-title">Products</h1>
+          <p className="page-subtitle">
+            Search the saved products loaded from MongoDB and add the items you
+            need to the cart.
+          </p>
+        </div>
 
-      <h1>Products Page</h1>
+        <div className="products-meta">
+          <span className="badge">Cart items: {cart.length}</span>
+          <span className="badge">
+            Visible: {loading ? "..." : filteredMedicines.length}
+          </span>
+        </div>
+      </section>
 
-      <h2>Cart Items : {cart.length}</h2>
+      <div className="card products-toolbar">
+        <div className="products-search">
+          <input
+            className="field"
+            type="text"
+            placeholder="Type to filter saved products"
+            value={search}
+            onChange={handleChange}
+          />
+        </div>
+        <p className="page-subtitle">
+          Keep the page focused by filtering only the medicines you want.
+        </p>
+      </div>
 
-      <p>Saved products found: {loading ? "loading..." : filteredMedicines.length}</p>
-
-      <input
-        type="text"
-        placeholder="Type to filter saved products"
-        value={search}
-        onChange={handleChange}
-      />
-
-      <hr />
-
-      {loading && <p>Loading saved products...</p>}
-
-      {error && <p>{error}</p>}
-
-      {!loading && !error && filteredMedicines.length === 0 && (
-        <p>No saved products match your search.</p>
+      {loading && (
+        <div className="card empty-state products-state">
+          Loading saved products...
+        </div>
       )}
 
-      {filteredMedicines.map((medicine) => (
-        <ProductCard
-          key={medicine._id}
-          name={medicine.name}
-          price={medicine.price}
-          company={medicine.company}
-          expiry={medicine.expiry}
-          onAddToCart={() => addToCart(medicine)}
-        />
-      ))}
+      {error && <div className="card empty-state products-state">{error}</div>}
 
+      {!loading && !error && filteredMedicines.length === 0 && (
+        <div className="card empty-state products-state">
+          No saved products match your search.
+        </div>
+      )}
+
+      <div className="product-grid">
+        {filteredMedicines.map((medicine) => (
+          <ProductCard
+            key={medicine._id}
+            name={medicine.name}
+            price={medicine.price}
+            company={medicine.company}
+            expiry={medicine.expiry}
+            onAddToCart={() => addToCart(medicine)}
+          />
+        ))}
+      </div>
     </div>
   );
 }

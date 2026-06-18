@@ -1,5 +1,3 @@
-import './App.css';
-
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Home from "./pages/Home";
@@ -15,28 +13,26 @@ import ProtectedRoute from "./components/ProtectedRoute";
 function App() {
   return (
     <BrowserRouter>
-    <Navbar />
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/" element={<Home />} />
-        <Route
-           path="/products/:id"
-            element={<ProductDetails />}
-          />
-        <Route path="/products" element={<Product />} />
-
-        <Route path="/cart" element={
-            <ProtectedRoute>
-              <Cart />
-            </ProtectedRoute>
+      <Navbar />
+      <main>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/products/:id" element={<ProductDetails />} />
+          <Route path="/products" element={<Product />} />
+          <Route
+            path="/cart"
+            element={
+              <ProtectedRoute>
+                <Cart />
+              </ProtectedRoute>
             }
-        />
-        <Route path="/orders" element={<Order />} />
-
-        <Route path="/about" element={<About />} />
-
-      </Routes>
+          />
+          <Route path="/orders" element={<Order />} />
+          <Route path="/about" element={<About />} />
+        </Routes>
+      </main>
 
     </BrowserRouter>
   );
