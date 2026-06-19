@@ -2,7 +2,8 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 import api from "../services/api";
 import { CartContext } from "../context/cartcontext";
-import "../css/pages/cart.css";
+import { toast } from "react-toastify";
+import "../styles/Cart.css";
 
 function Cart() {
   const {
@@ -33,10 +34,13 @@ function Cart() {
         }
       );
 
-      alert("Order Placed");
+      toast.success("Order placed successfully");
       clearCart();
     } catch (error) {
       console.log(error);
+      toast.error(
+        error?.response?.data?.message || "Could not place the order right now."
+      );
     }
   }
 

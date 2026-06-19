@@ -59,6 +59,10 @@ body::before {
   min-height: 100vh;
 }
 
+main {
+  display: block;
+}
+
 img {
   display: block;
   max-width: 100%;
@@ -78,6 +82,23 @@ select {
 
 button {
   cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+  transform: none;
+  box-shadow: none;
+}
+
+:focus-visible {
+  outline: 3px solid rgba(28, 124, 125, 0.35);
+  outline-offset: 3px;
+}
+
+::selection {
+  background: rgba(28, 124, 125, 0.2);
+  color: var(--text);
 }
 
 hr {
@@ -200,6 +221,10 @@ hr {
     transform 0.2s ease;
 }
 
+.field::placeholder {
+  color: #8190a6;
+}
+
 .field:focus {
   outline: none;
   border-color: rgba(28, 124, 125, 0.45);
@@ -237,6 +262,20 @@ hr {
 .grid {
   display: grid;
   gap: 1rem;
+}
+
+.Toastify__toast-container {
+  width: min(420px, calc(100vw - 24px));
+}
+
+.Toastify__toast {
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+}
+
+.Toastify__toast-body {
+  font-family: inherit;
+  font-size: 0.95rem;
 }
 
 @media (max-width: 768px) {

@@ -1,8 +1,13 @@
-import "../css/components/ProductCard.css";
+import { motion } from "framer-motion";
+import "../styles/ProductCard.css";
 
 function ProductCard({ name, price, company, expiry, onAddToCart }) {
   return (
-    <article className="product-card">
+    <motion.article
+      className="product-card"
+      whileHover={{ y: -6, scale: 1.01 }}
+      transition={{ type: "spring", stiffness: 320, damping: 24 }}
+    >
       <span className="product-card__tag">Medicine</span>
       <h2 className="product-card__title">{name}</h2>
 
@@ -15,7 +20,7 @@ function ProductCard({ name, price, company, expiry, onAddToCart }) {
       <button className="btn btn--primary product-card__button" onClick={onAddToCart}>
         Add To Cart
       </button>
-    </article>
+    </motion.article>
   );
 }
 

@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import api from "../services/api";
-import "../css/pages/auth.css";
+import { toast } from "react-toastify";
+import "../styles/Auth.css";
 function Register() {
 
   const [formData, setFormData] = useState({
@@ -29,9 +30,9 @@ function Register() {
         "/auth/register",
         formData
       );
-      alert(response.data.message);
+      toast.success(response.data.message || "Registration successful");
     } catch (error) {
-      alert(error?.response?.data?.message || error.message || error);
+      toast.error(error?.response?.data?.message || error.message || "Registration failed");
     }
   }
 

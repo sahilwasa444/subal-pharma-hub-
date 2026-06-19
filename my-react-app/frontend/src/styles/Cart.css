@@ -72,6 +72,10 @@
   font-weight: 800;
 }
 
+.quantity-controls button:hover {
+  border-color: rgba(28, 124, 125, 0.22);
+}
+
 .cart-summary {
   position: sticky;
   top: 7.5rem;

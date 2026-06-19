@@ -2,7 +2,8 @@ import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import api from "../services/api";
-import "../css/pages/auth.css";
+import { toast } from "react-toastify";
+import "../styles/Auth.css";
 
 function Login() {
   const { login } = useContext(AuthContext);
@@ -29,9 +30,12 @@ function Login() {
       const response = await api.post("/auth/login", formData);
       login(response.data.user);
       localStorage.setItem("token", response.data.token);
-      alert("login success");
+      toast.success("Login successful");
     } catch (error) {
-      alert(error?.response?.data?.message || "Login failed. Check your input and try again.");
+      toast.error(
+        error?.response?.data?.message ||
+          "Login failed. Check your input and try again."
+      );
     }
   }
 

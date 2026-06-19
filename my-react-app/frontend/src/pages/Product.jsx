@@ -2,7 +2,8 @@ import { useState,useEffect, useContext } from "react";
 import ProductCard from "../components/ProductCard";
 import api from "../services/api";
 import { CartContext } from "../context/cartcontext";
-import "../css/pages/products.css";
+import { toast } from "react-toastify";
+import "../styles/Products.css";
 function Product() {
 
   const [search, setSearch] = useState("");
@@ -35,6 +36,11 @@ function Product() {
   const filteredMedicines = products.filter((medicine) =>
     (medicine.name || "").toLowerCase().includes(search.toLowerCase())
   );
+
+  function handleAddToCart(medicine) {
+    addToCart(medicine);
+    toast.success(`${medicine.name} added to cart`);
+  }
 
   return (
     <div className="page products-page">
@@ -93,7 +99,7 @@ function Product() {
             price={medicine.price}
             company={medicine.company}
             expiry={medicine.expiry}
-            onAddToCart={() => addToCart(medicine)}
+            onAddToCart={() => handleAddToCart(medicine)}
           />
         ))}
       </div>
