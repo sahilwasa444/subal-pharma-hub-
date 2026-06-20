@@ -7,7 +7,7 @@ import connectDB from "./config/db.js";
 import authRoutes from "./routes/authRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
 import orderRoutes from "./routes/OrderRoutes.js";
-
+import {connectRedis} from "./config/redis.js";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 dotenv.config({ path: `${__dirname}/.env` });
@@ -27,6 +27,7 @@ const PORT = process.env.PORT || 5000;
 
 const startServer = async () => {
   await connectDB();
+  await connectRedis();
   app.listen(PORT, () => {
     console.log(`Server Running On Port ${PORT}`);
   });

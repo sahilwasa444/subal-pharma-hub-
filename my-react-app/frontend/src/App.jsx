@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
+import AdminRoute from "./components/AdminRoute";
+import AdminProduct from "./pages/AdminProduct";
 import Home from "./pages/Home";
 import Product from "./pages/Product";
 import Cart from "./pages/Cart";
@@ -29,6 +30,14 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route
+               path="/admin/products"
+               element={
+              <AdminRoute>
+                <AdminProduct />
+              </AdminRoute>
+          } 
+/>
           <Route path="/orders" element={<Order />} />
           <Route path="/about" element={<About />} />
         </Routes>

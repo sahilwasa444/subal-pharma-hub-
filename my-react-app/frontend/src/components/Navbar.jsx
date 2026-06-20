@@ -8,6 +8,7 @@ import {
   FaHome,
   FaInfoCircle,
   FaPills,
+  FaPlusCircle,
   FaShoppingCart,
   FaSignOutAlt,
   FaUser
@@ -60,6 +61,12 @@ function Navbar() {
 
         {user ? (
           <>
+            {user.role === "admin" && (
+              <NavLink to="/admin/products" className={linkClass}>
+                <FaPlusCircle aria-hidden="true" />
+                <span>Manage Products</span>
+              </NavLink>
+            )}
             <NavLink to="/orders" className={linkClass}>
               <FaClipboardList aria-hidden="true" />
               <span>Orders</span>

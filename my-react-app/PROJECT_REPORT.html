@@ -1,0 +1,742 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PharmaHub Project Report</title>
+    <style>
+      :root {
+        --bg: #f5f8fc;
+        --surface: #ffffff;
+        --surface-soft: #f0f6fb;
+        --text: #102033;
+        --muted: #5a697d;
+        --accent: #1c7c7d;
+        --accent-2: #f4a261;
+        --border: #d7e2ee;
+        --shadow: 0 16px 40px rgba(16, 32, 51, 0.08);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Arial, sans-serif;
+        color: var(--text);
+        background:
+          radial-gradient(circle at top left, rgba(28, 124, 125, 0.14), transparent 24%),
+          radial-gradient(circle at top right, rgba(244, 162, 97, 0.18), transparent 20%),
+          linear-gradient(180deg, #f8fbff 0%, #eef4fa 100%);
+      }
+
+      a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+
+      .page {
+        width: min(1100px, calc(100% - 32px));
+        margin: 0 auto;
+        padding: 28px 0 48px;
+      }
+
+      .hero {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(240, 246, 251, 0.96));
+        border: 1px solid var(--border);
+        border-radius: 28px;
+        box-shadow: var(--shadow);
+        padding: 32px;
+      }
+
+      .eyebrow {
+        margin: 0 0 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        font-size: 0.78rem;
+        font-weight: 800;
+        color: var(--accent);
+      }
+
+      h1,
+      h2,
+      h3 {
+        margin: 0 0 12px;
+        line-height: 1.1;
+      }
+
+      h1 {
+        font-size: clamp(2.2rem, 4vw, 3.6rem);
+      }
+
+      h2 {
+        font-size: clamp(1.5rem, 2.4vw, 2.2rem);
+        margin-top: 0;
+      }
+
+      h3 {
+        font-size: 1.15rem;
+      }
+
+      p,
+      li {
+        line-height: 1.75;
+        color: var(--text);
+      }
+
+      .muted {
+        color: var(--muted);
+      }
+
+      .meta-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 12px;
+        margin-top: 24px;
+      }
+
+      .meta-chip {
+        padding: 12px 14px;
+        border-radius: 16px;
+        background: rgba(28, 124, 125, 0.08);
+        border: 1px solid rgba(28, 124, 125, 0.16);
+        font-weight: 700;
+      }
+
+      .section {
+        margin-top: 24px;
+        background: rgba(255, 255, 255, 0.84);
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        box-shadow: var(--shadow);
+        padding: 28px;
+      }
+
+      .toc {
+        display: grid;
+        gap: 10px;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      }
+
+      .toc a {
+        display: block;
+        padding: 12px 14px;
+        border-radius: 14px;
+        border: 1px solid var(--border);
+        background: var(--surface);
+        color: var(--text);
+      }
+
+      .toc a:hover {
+        border-color: rgba(28, 124, 125, 0.3);
+        box-shadow: 0 10px 22px rgba(16, 32, 51, 0.06);
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        overflow: hidden;
+        border-radius: 18px;
+        margin: 16px 0 0;
+        background: var(--surface);
+      }
+
+      th,
+      td {
+        border: 1px solid var(--border);
+        padding: 12px 14px;
+        text-align: left;
+        vertical-align: top;
+      }
+
+      th {
+        background: var(--surface-soft);
+      }
+
+      pre {
+        white-space: pre-wrap;
+        word-break: break-word;
+        background: #0f172a;
+        color: #e2e8f0;
+        padding: 16px;
+        border-radius: 18px;
+        overflow-x: auto;
+      }
+
+      .note {
+        padding: 14px 16px;
+        border-left: 4px solid var(--accent);
+        background: rgba(28, 124, 125, 0.08);
+        border-radius: 14px;
+        margin: 16px 0 0;
+      }
+
+      .grid-2 {
+        display: grid;
+        gap: 16px;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      }
+
+      ul {
+        margin-top: 10px;
+        padding-left: 20px;
+      }
+
+      .pill {
+        display: inline-block;
+        padding: 4px 10px;
+        border-radius: 999px;
+        background: rgba(244, 162, 97, 0.15);
+        color: #8a4f00;
+        font-weight: 700;
+        font-size: 0.86rem;
+      }
+
+      @media print {
+        body {
+          background: #fff;
+        }
+
+        .page {
+          width: 100%;
+          padding: 0;
+        }
+
+        .hero,
+        .section {
+          box-shadow: none;
+        }
+
+        a {
+          color: inherit;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <header class="hero">
+        <p class="eyebrow">PharmaHub Project Report</p>
+        <h1>Whole project explanation, folder by folder, with data flow and working details</h1>
+        <p class="muted">
+          This report is based on the active application inside <strong>my-react-app</strong>.
+          It explains how the frontend, backend, database, and shared state work together,
+          what data is passed between each part, and how the project is organized.
+        </p>
+
+        <div class="meta-grid">
+          <div class="meta-chip">Frontend: React + Vite</div>
+          <div class="meta-chip">Backend: Node + Express</div>
+          <div class="meta-chip">Database: MongoDB + Mongoose</div>
+          <div class="meta-chip">Auth: JWT + bcrypt</div>
+        </div>
+
+        <div class="note">
+          Scope note: the active app is the nested <strong>my-react-app</strong> project. The root of
+          the workspace contains some older/legacy files, but the running frontend and backend are
+          inside this folder.
+        </div>
+      </header>
+
+      <section class="section" id="toc">
+        <h2>Table of Contents</h2>
+        <div class="toc">
+          <a href="#overview">1. Project overview</a>
+          <a href="#structure">2. Folder structure</a>
+          <a href="#frontend">3. Frontend breakdown</a>
+          <a href="#backend">4. Backend breakdown</a>
+          <a href="#dataflow">5. End-to-end data flow</a>
+          <a href="#api">6. API reference</a>
+          <a href="#models">7. Database models</a>
+          <a href="#env">8. Environment variables</a>
+          <a href="#run">9. How to run the project</a>
+          <a href="#notes">10. Notes and future improvements</a>
+        </div>
+      </section>
+
+      <section class="section" id="overview">
+        <h2>1. Project Overview</h2>
+        <p>
+          PharmaHub is a medicine shopping and order management application. It lets a user browse
+          products, search medicines, add items to a cart, register or log in, place an order, and
+          view order history. The frontend is built with React and Vite, while the backend is built
+          with Express and MongoDB.
+        </p>
+        <p>
+          The project is split into two major parts:
+        </p>
+        <ul>
+          <li>
+            <strong>Frontend</strong>: handles UI, routing, shared state, and calls to the backend API.
+          </li>
+          <li>
+            <strong>Backend</strong>: handles authentication, product lookup, order creation, and
+            database storage.
+          </li>
+        </ul>
+        <p>
+          The app uses <strong>JWT authentication</strong> to protect order-related actions. The
+          frontend stores the logged-in user and token in localStorage so the session survives page
+          refreshes.
+        </p>
+      </section>
+
+      <section class="section" id="structure">
+        <h2>2. Folder Structure</h2>
+        <p>
+          Below is the practical structure of the active app. This is the part that matters for how
+          the code runs today.
+        </p>
+        <pre>my-react-app
+  backend
+    config
+    controllers
+    middleware
+    models
+    routes
+    .env
+    server.js
+  frontend
+    index.html
+    package.json
+    src
+      assets
+      components
+      context
+      css
+      data
+      pages
+      services
+      App.jsx
+      main.jsx
+  package.json
+  vite.config.js
+  README.md</pre>
+
+        <div class="grid-2">
+          <div>
+            <h3>Frontend folders</h3>
+            <ul>
+              <li><strong>assets</strong>: images and SVG assets used by the UI.</li>
+              <li><strong>components</strong>: reusable pieces like Navbar, ProductCard, ProtectedRoute.</li>
+              <li><strong>context</strong>: global state providers for auth and cart.</li>
+              <li><strong>css</strong>: shared styles, page styles, and component styles.</li>
+              <li><strong>data</strong>: placeholder folder for static data or seed data.</li>
+              <li><strong>pages</strong>: route-based screens like Home, Products, Cart, Orders, Login.</li>
+              <li><strong>services</strong>: API client setup for Axios.</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Backend folders</h3>
+            <ul>
+              <li><strong>config</strong>: MongoDB connection setup.</li>
+              <li><strong>controllers</strong>: business logic for auth, products, and orders.</li>
+              <li><strong>middleware</strong>: request protection and token verification.</li>
+              <li><strong>models</strong>: Mongoose schemas for users, products, and orders.</li>
+              <li><strong>routes</strong>: Express route definitions and URL grouping.</li>
+              <li><strong>.env</strong>: environment values like database URL, port, and JWT secret.</li>
+              <li><strong>server.js</strong>: main backend entry file.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="frontend">
+        <h2>3. Frontend Breakdown</h2>
+
+        <h3>3.1 Entry files</h3>
+        <ul>
+          <li>
+            <strong>src/main.jsx</strong> creates the React root and wraps the app with
+            <strong>AuthProvider</strong> and <strong>CartProvider</strong>.
+          </li>
+          <li>
+            <strong>src/App.jsx</strong> defines the application routes and places the Navbar above
+            all pages.
+          </li>
+          <li>
+            <strong>src/services/api.js</strong> creates the Axios client with base URL
+            <code>http://localhost:5000/api</code>.
+          </li>
+        </ul>
+
+        <h3>3.2 Shared state</h3>
+        <p>
+          The frontend uses React Context in two places:
+        </p>
+        <ul>
+          <li>
+            <strong>AuthContext</strong>: stores the logged-in user and exposes <code>login</code>
+            and <code>logout</code>.
+          </li>
+          <li>
+            <strong>CartContext</strong>: stores cart items and exposes actions for add, remove,
+            increase quantity, decrease quantity, and clear cart.
+          </li>
+        </ul>
+
+        <h3>3.3 Components</h3>
+        <ul>
+          <li>
+            <strong>Navbar</strong> shows navigation links, cart count, login/register links, and
+            logout controls.
+          </li>
+          <li>
+            <strong>ProductCard</strong> renders a single medicine card and triggers add-to-cart.
+          </li>
+          <li>
+            <strong>ProtectedRoute</strong> blocks unauthenticated users from reaching the cart page.
+          </li>
+        </ul>
+
+        <h3>3.4 Pages</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Page</th>
+              <th>What it does</th>
+              <th>What data it uses or sends</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Home</td>
+              <td>Landing page and marketing overview.</td>
+              <td>Static content and image asset.</td>
+            </tr>
+            <tr>
+              <td>Products</td>
+              <td>Fetches medicine list and filters it by search text.</td>
+              <td>GET <code>/api/products</code>, medicine objects, cart context.</td>
+            </tr>
+            <tr>
+              <td>ProductDetails</td>
+              <td>Shows the product id from the URL and provides navigation.</td>
+              <td>Route param <code>id</code>; currently no live API fetch.</td>
+            </tr>
+            <tr>
+              <td>Cart</td>
+              <td>Shows selected items, quantity controls, and checkout.</td>
+              <td>CartContext data, total price, POST <code>/api/orders</code>.</td>
+            </tr>
+            <tr>
+              <td>Orders</td>
+              <td>Loads and displays previous orders for the logged-in user.</td>
+              <td>GET <code>/api/orders</code> with Bearer token.</td>
+            </tr>
+            <tr>
+              <td>Login</td>
+              <td>Authenticates the user.</td>
+              <td>POST <code>/api/auth/login</code> with email and password.</td>
+            </tr>
+            <tr>
+              <td>Register</td>
+              <td>Creates a new user account.</td>
+              <td>POST <code>/api/auth/register</code> with name, email, password, confirmPassword.</td>
+            </tr>
+            <tr>
+              <td>About</td>
+              <td>Explains the app and its purpose.</td>
+              <td>Static content and navigation links.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>3.5 Styling system</h3>
+        <p>
+          The project keeps styling organized in a dedicated <strong>css</strong> folder instead of
+          one giant stylesheet. That makes the app easier to maintain.
+        </p>
+        <ul>
+          <li><strong>global.css</strong> sets the theme, typography, layout helpers, buttons, cards, and inputs.</li>
+          <li><strong>pages/*.css</strong> contains styles for each page.</li>
+          <li><strong>components/*.css</strong> contains styles for reusable UI parts.</li>
+        </ul>
+        <p class="note">
+          Important design detail: the app uses a calm teal-and-cream visual theme with shared utility
+          classes such as <code>card</code>, <code>btn</code>, <code>field</code>, <code>badge</code>,
+          and <code>page</code>.
+        </p>
+      </section>
+
+      <section class="section" id="backend">
+        <h2>4. Backend Breakdown</h2>
+
+        <h3>4.1 server.js</h3>
+        <p>
+          The main backend file does four jobs:
+        </p>
+        <ul>
+          <li>Loads environment variables from <code>backend/.env</code>.</li>
+          <li>Creates the Express app and enables CORS and JSON parsing.</li>
+          <li>Mounts the route groups for auth, products, and orders.</li>
+          <li>Starts the server after the MongoDB connection is ready.</li>
+        </ul>
+
+        <h3>4.2 config/db.js</h3>
+        <p>
+          This file connects Mongoose to the database using <code>MONGO_URI</code> or
+          <code>MONGODB_URI</code>. If the URI is missing, the app stops with a clear error message.
+        </p>
+
+        <h3>4.3 routes and controllers</h3>
+        <div class="grid-2">
+          <div>
+            <h3>Auth</h3>
+            <ul>
+              <li><strong>authRoutes.js</strong> exposes <code>/register</code> and <code>/login</code>.</li>
+              <li><strong>authControllers.js</strong> validates input, hashes passwords, checks login, and signs JWT tokens.</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Products</h3>
+            <ul>
+              <li><strong>productRoutes.js</strong> exposes <code>GET /</code> and <code>POST /</code>.</li>
+              <li><strong>productController.js</strong> reads and writes product documents in MongoDB.</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Orders</h3>
+            <ul>
+              <li><strong>OrderRoutes.js</strong> exposes <code>POST /</code> and <code>GET /</code>.</li>
+              <li><strong>OrderControllers.js</strong> creates new orders and fetches orders for the logged-in user.</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Middleware</h3>
+            <ul>
+              <li><strong>authMiddleware.js</strong> checks the Bearer token, verifies it with JWT, and stores the decoded user on <code>req.user</code>.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="dataflow">
+        <h2>5. End-to-End Data Flow</h2>
+
+        <h3>5.1 Registration flow</h3>
+        <ol>
+          <li>The user fills the register form with <code>name</code>, <code>email</code>, <code>password</code>, and <code>confirmPassword</code>.</li>
+          <li>The frontend sends that object to <code>POST /api/auth/register</code>.</li>
+          <li>The backend checks required fields, compares passwords, checks whether the email already exists, then hashes the password.</li>
+          <li>A new user is saved in MongoDB.</li>
+          <li>The response returns a success message and a safe user object.</li>
+        </ol>
+
+        <h3>5.2 Login flow</h3>
+        <ol>
+          <li>The user submits <code>email</code> and <code>password</code>.</li>
+          <li>The frontend sends the form data to <code>POST /api/auth/login</code>.</li>
+          <li>The backend finds the user by email and compares the password with bcrypt.</li>
+          <li>If valid, the backend creates a JWT token with the user id.</li>
+          <li>The frontend stores the user in AuthContext and stores the token in localStorage.</li>
+        </ol>
+
+        <h3>5.3 Browse products flow</h3>
+        <ol>
+          <li>The Products page calls <code>GET /api/products</code>.</li>
+          <li>The backend returns all saved product documents from MongoDB.</li>
+          <li>The page filters results locally using the search box.</li>
+          <li>Each product card receives <code>name</code>, <code>price</code>, <code>company</code>, and <code>expiry</code>.</li>
+          <li>When the user clicks Add To Cart, the whole product object is passed into CartContext.</li>
+        </ol>
+
+        <h3>5.4 Cart flow</h3>
+        <ol>
+          <li>CartContext stores the selected items in memory for the current session.</li>
+          <li>Each cart item has an id, name, price, company, expiry, and quantity.</li>
+          <li>The Cart page calculates the total price by multiplying item price by quantity.</li>
+          <li>When the user clicks Place Order, the page sends <code>items</code> and <code>totalPrice</code> to <code>POST /api/orders</code>.</li>
+          <li>The request includes <code>Authorization: Bearer &lt;token&gt;</code>.</li>
+        </ol>
+
+        <h3>5.5 Order flow</h3>
+        <ol>
+          <li>The backend auth middleware verifies the token and adds the decoded user id to the request.</li>
+          <li>The order controller saves the order with <code>user</code>, <code>items</code>, <code>totalPrice</code>, and <code>status: "Pending"</code>.</li>
+          <li>Orders are saved in MongoDB with timestamps.</li>
+          <li>The Orders page calls <code>GET /api/orders</code> with the same token.</li>
+          <li>The backend returns only orders that belong to the logged-in user.</li>
+        </ol>
+      </section>
+
+      <section class="section" id="api">
+        <h2>6. API Reference</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Method</th>
+              <th>Route</th>
+              <th>Protected</th>
+              <th>Request Body</th>
+              <th>Response</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>POST</td>
+              <td><code>/api/auth/register</code></td>
+              <td>No</td>
+              <td><code>{ name, email, password, confirmPassword }</code></td>
+              <td>Message and created user object.</td>
+            </tr>
+            <tr>
+              <td>POST</td>
+              <td><code>/api/auth/login</code></td>
+              <td>No</td>
+              <td><code>{ email, password }</code></td>
+              <td>JWT token and user object.</td>
+            </tr>
+            <tr>
+              <td>GET</td>
+              <td><code>/api/products</code></td>
+              <td>No</td>
+              <td>None</td>
+              <td>Array of product documents.</td>
+            </tr>
+            <tr>
+              <td>POST</td>
+              <td><code>/api/products</code></td>
+              <td>No</td>
+              <td>Product data object</td>
+              <td>Created product document.</td>
+            </tr>
+            <tr>
+              <td>POST</td>
+              <td><code>/api/orders</code></td>
+              <td>Yes</td>
+              <td><code>{ items, totalPrice }</code></td>
+              <td>Created order document with success flag.</td>
+            </tr>
+            <tr>
+              <td>GET</td>
+              <td><code>/api/orders</code></td>
+              <td>Yes</td>
+              <td>None</td>
+              <td>Orders for the logged-in user.</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="note">
+          Auth-protected routes expect an <code>Authorization</code> header in the form:
+          <code>Bearer &lt;jwt token&gt;</code>
+        </p>
+      </section>
+
+      <section class="section" id="models">
+        <h2>7. Database Models</h2>
+        <div class="grid-2">
+          <div>
+            <h3>User</h3>
+            <ul>
+              <li><code>name</code> - required string</li>
+              <li><code>email</code> - required, unique string</li>
+              <li><code>password</code> - required hashed string</li>
+              <li>Timestamps are enabled</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Product</h3>
+            <ul>
+              <li><code>name</code> - required string</li>
+              <li><code>price</code> - required number</li>
+              <li><code>company</code> - required string</li>
+              <li><code>expiry</code> - required string</li>
+              <li><code>description</code> - optional string</li>
+              <li><code>stock</code> - number with default 0</li>
+              <li>Timestamps are enabled</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Order</h3>
+            <ul>
+              <li><code>user</code> - ObjectId reference to User</li>
+              <li><code>items</code> - array of item objects</li>
+              <li><code>totalPrice</code> - required number</li>
+              <li><code>status</code> - defaults to Pending</li>
+              <li>Timestamps are enabled</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Cart item shape in frontend</h3>
+            <ul>
+              <li><code>id</code> and <code>_id</code> for stable lookup</li>
+              <li><code>name</code>, <code>price</code>, <code>company</code>, <code>expiry</code></li>
+              <li><code>quantity</code> for checkout math</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="env">
+        <h2>8. Environment Variables</h2>
+        <p>
+          The backend reads configuration from <code>backend/.env</code>. The important values are:
+        </p>
+        <ul>
+          <li><code>PORT</code> - backend listening port</li>
+          <li><code>MONGO_URI</code> or <code>MONGODB_URI</code> - MongoDB connection string</li>
+          <li><code>JWT_SECRET</code> - secret key used to sign and verify tokens</li>
+        </ul>
+        <p>
+          The frontend API client points to <code>http://localhost:5000/api</code> through
+          <code>src/services/api.js</code>.
+        </p>
+      </section>
+
+      <section class="section" id="run">
+        <h2>9. How to Run the Project</h2>
+        <p>
+          The app is split into a backend and frontend, so each part can be started separately.
+        </p>
+        <pre>Backend
+  cd my-react-app
+  npm start
+
+Frontend
+  cd my-react-app/frontend
+  npm run dev</pre>
+        <p>
+          The backend listens on port <strong>5000</strong>. The frontend dev server runs on
+          <strong>3000</strong>.
+        </p>
+      </section>
+
+      <section class="section" id="notes">
+        <h2>10. Notes and Future Improvements</h2>
+        <ul>
+          <li>
+            <strong>ProductDetails</strong> currently shows the route id and navigation, but it does
+            not yet fetch a single product from the backend.
+          </li>
+          <li>
+            The controller has a <code>getProductById</code> helper, but it is not currently wired to
+            a route.
+          </li>
+          <li>
+            <strong>frontend/src/data/data.jsx</strong> is currently empty, so the app depends on the
+            MongoDB products collection instead of local mock data.
+          </li>
+          <li>
+            Auth protection is split between frontend and backend. The frontend checks for a stored
+            user, while the backend checks the JWT token.
+          </li>
+          <li>
+            The cart is currently client-side state. That is fine for a simple app, but a future
+            upgrade could save carts per user in MongoDB.
+          </li>
+        </ul>
+
+        <div class="note">
+          Summary: the app is a clean React + Express + MongoDB project with a clear shopping flow:
+          register -> login -> browse products -> add to cart -> place order -> review orders.
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

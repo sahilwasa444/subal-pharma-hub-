@@ -25,11 +25,12 @@ const registerUser = async (req, res) => {
     res.status(201).json({
       message: "User Registered",
       user: {
-        id: user._id,
-        name: user.name,
-        email: user.email
+         id: user._id,
+         name: user.name,
+         email: user.email,
+          role: user.role
       }
-    });
+  });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -62,7 +63,8 @@ const loginUser = async (req, res) => {
       user: {
         id: user._id,
         name: user.name,
-        email: user.email
+        email: user.email,
+        role: user.role
       }
     });
   } catch (error) {
