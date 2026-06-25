@@ -7,10 +7,12 @@ import Cart from "./pages/Cart";
 import Order from "./pages/Order";
 import About from "./pages/About";
 import ProductDetails from "./pages/ProductDetails";
-import Navbar from './components/Navbar';
-import Login from './pages/login';
-import Register from './pages/Register';
+import MedicalAssistant from "./pages/MedicalAssistant";
+import Navbar from "./components/Navbar";
+import Login from "./pages/login";
+import Register from "./pages/Register";
 import ProtectedRoute from "./components/ProtectedRoute";
+
 function App() {
   return (
     <BrowserRouter>
@@ -31,18 +33,18 @@ function App() {
             }
           />
           <Route
-               path="/admin/products"
-               element={
+            path="/admin/products"
+            element={
               <AdminRoute>
                 <AdminProduct />
               </AdminRoute>
-          } 
-/>
+            }
+          />
           <Route path="/orders" element={<Order />} />
           <Route path="/about" element={<About />} />
+          <Route path="/medical-assistant" element={<MedicalAssistant />} />
         </Routes>
       </main>
-
     </BrowserRouter>
   );
 }

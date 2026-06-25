@@ -48,6 +48,9 @@ function Navbar() {
           <FaInfoCircle aria-hidden="true" />
           <span>About</span>
         </NavLink>
+        <NavLink to="/medical-assistant" className={linkClass}>
+          <span>Medical Assistant</span>
+        </NavLink>
       </div>
 
       <div className="nav-actions">
