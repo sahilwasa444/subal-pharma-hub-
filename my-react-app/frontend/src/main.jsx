@@ -7,23 +7,27 @@ import "react-toastify/dist/ReactToastify.css";
 
 import AuthProvider from "./context/AuthContext.jsx";
 import CartProvider from "./context/cartcontext.jsx";
+import { Provider } from 'react-redux'
+import { store } from './app/store'
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <AuthProvider>
-      <CartProvider>
-        <App />
-        <ToastContainer
-          position="top-right"
-          autoClose={2500}
-          hideProgressBar
-          newestOnTop
-          closeOnClick
-          pauseOnHover
-          draggable
-          theme="light"
-        />
-      </CartProvider>
-    </AuthProvider>
+    <Provider store={store}>
+      <AuthProvider>
+        <CartProvider>
+          <App />
+          <ToastContainer
+            position="top-right"
+            autoClose={2500}
+            hideProgressBar
+            newestOnTop
+            closeOnClick
+            pauseOnHover
+            draggable
+            theme="light"
+          />
+        </CartProvider>
+      </AuthProvider>
+    </Provider>
   </React.StrictMode>
 );
