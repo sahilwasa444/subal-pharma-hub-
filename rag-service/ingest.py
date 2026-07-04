@@ -1,24 +1,40 @@
-import json
+from pathlib import Path
+from embed import generate_embedding
+from config import medicine_collection
+from pdf_loader import extract_text
+from chunker import chunk_text
 
-# Step 1: Load the medicines from JSON
-with open("data/medicines.json", "r") as file:
-    medicines = json.load(file)
+ROOT = Path(__file__).resolve().parent
+PDF_PATH = ROOT / "data" / "product_catalog.pdf"
 
-# Step 2: Convert each medicine into a text docum
-for medicine in medicines:
-    # Create a clean text document for each medicine
-    document = f"""
-Name: {medicine['name']}
 
-Uses: {medicine['uses']}
+def ingest_pdf(pdf_path=PDF_PATH):
+    text = extract_text(pdf_path)
+    chunks = chunk_text(text)
 
-Dosage: {medicine['dosage']}
+    if not chunks:
+        raise ValueError("No text extracted from PDF")
 
-Side Effects: {', '.join(medicine['sideEffects'])}
+    medicine_collection.delete_many({"source": pdf_path.name})
 
-Warnings: {', '.join(medicine['warnings'])}
-"""
-    
-    print(f"--- Medicine #{medicine['id']} ---")
-    print(document)
-    print()
+    inserted_documents = []
+    for chunk_id, chunk in enumerate(chunks, start=1):
+        embedding = generate_embedding(chunk)
+        record = {
+            "source": pdf_path.name,
+            "chunk_id": chunk_id,
+            "text": chunk,
+            "embedding": embedding,
+        }
+        medicine_collection.insert_one(record)
+        inserted_documents.append(record)
+
+    return inserted_documents
+
+
+if __name__ == "__main__":
+    try:
+        docs = ingest_pdf()
+        print(f"Inserted {len(docs)} chunks from {PDF_PATH.name}")
+    except Exception as exc:
+        print(f"Ingestion failed: {exc}")
