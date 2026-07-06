@@ -13,6 +13,7 @@ The actively maintained app lives in `my-react-app/`.
 ## Documentation
 
 - [Medical RAG implementation guide](docs/medical-rag-guide.md)
+- [Detailed app RAG implementation map](my-react-app/README.md)
 
 ## Notes
 

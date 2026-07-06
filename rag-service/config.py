@@ -1,6 +1,11 @@
+import os
+
 from pymongo import MongoClient
 
-MONGO_URI = "mongodb+srv://sahil:shruti@cluster0.pikz6bf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+MONGO_URI = os.getenv("MONGO_URI")
+
+if not MONGO_URI:
+    raise RuntimeError("Set MONGO_URI before running the rag-service scripts.")
 
 client = MongoClient(MONGO_URI)
 db = client["pharmahub"]
