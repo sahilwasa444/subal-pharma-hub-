@@ -15,6 +15,9 @@
   color: #f6fbff;
   background:
     linear-gradient(145deg, rgba(5, 24, 35, 0.97), rgba(10, 78, 82, 0.93) 52%, rgba(16, 25, 44, 0.98));
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 28px 72px rgba(8, 18, 29, 0.24);
 }
 
 .auth-hero::before,
@@ -153,6 +156,10 @@
   display: grid;
   gap: 1rem;
   align-content: start;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.97), rgba(247, 251, 250, 0.92));
+}
+
+.auth-page .auth-card.card {
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.97), rgba(247, 251, 250, 0.92));
 }
 

@@ -41,7 +41,7 @@ function Login() {
 
   return (
     <div className="page auth-page">
-      <aside className="auth-hero card">
+      <aside className="auth-hero">
         <div className="auth-copy">
           <p className="eyebrow">Welcome back</p>
           <h1 className="hero-title">

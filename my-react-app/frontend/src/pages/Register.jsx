@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import pharmacyInteriorImage from "../assets/pharmacy-interior.jpg";
+import pillBottleImage from "../assets/medicine-pill-bottle.jpg";
 import api from "../services/api";
 import { toast } from "react-toastify";
 import "../styles/Auth.css";
@@ -38,21 +40,45 @@ function Register() {
 
   return (
     <div className="page auth-page">
-      <aside className="auth-hero card">
-        <div>
+      <aside className="auth-hero">
+        <div className="auth-copy">
           <p className="eyebrow">Create account</p>
           <h1 className="hero-title">
-            Join Subal Pharma and keep your orders tidy.
+            Join Subal Pharma and keep every order easy to revisit.
           </h1>
+          <p className="auth-lead">
+            Register once to save your cart, place protected orders, and return
+            to the medicines you rely on without starting over.
+          </p>
         </div>
-        <p>
-          Register once to save your cart, place protected orders, and return
-          to the products you need without starting over.
-        </p>
-        <div className="auth-points">
-          <div className="auth-point">Fast checkout</div>
-          <div className="auth-point">Saved order history</div>
-          <div className="auth-point">A clear shopping experience</div>
+
+        <div className="auth-visual">
+          <div className="media-frame auth-visual__main">
+            <img
+              src={pharmacyInteriorImage}
+              alt="A modern pharmacy interior with stocked medicine shelves"
+            />
+            <div className="auth-visual__badge">
+              Your account, cart, and orders in one place
+            </div>
+          </div>
+
+          <div className="auth-visual__stack">
+            <div className="media-frame auth-visual__thumb">
+              <img
+                src={pillBottleImage}
+                alt="Medicine capsules spilling from a white bottle"
+              />
+            </div>
+            <div className="auth-trust card card--soft">
+              <strong>Why register?</strong>
+              <ul>
+                <li>Save cart items without losing your place.</li>
+                <li>Return to your recent orders quickly.</li>
+                <li>Keep the checkout flow smooth and secure.</li>
+              </ul>
+            </div>
+          </div>
         </div>
       </aside>
 
