@@ -11,12 +11,13 @@ import {
   FaPlusCircle,
   FaShoppingCart,
   FaSignOutAlt,
-  FaUser
+  FaUser,
+  FaNotesMedical
 } from "react-icons/fa";
 import "../styles/Navbar.css";
 
 function Navbar() {
-  const { cart } = useContext(CartContext);
+  const { cartSummary } = useContext(CartContext);
   const { user, logout } = useContext(AuthContext);
 
   function linkClass({ isActive }) {
@@ -49,6 +50,7 @@ function Navbar() {
           <span>About</span>
         </NavLink>
         <NavLink to="/medical-assistant" className={linkClass}>
+          <FaNotesMedical aria-hidden="true" />
           <span>Medical Assistant</span>
         </NavLink>
       </div>
@@ -58,7 +60,7 @@ function Navbar() {
           <span className="nav-cart">
             <FaShoppingCart aria-hidden="true" />
             <span>Cart</span>
-            <span className="nav-cart__count">{cart.length}</span>
+            <span className="nav-cart__count">{cartSummary.itemCount}</span>
           </span>
         </NavLink>
 

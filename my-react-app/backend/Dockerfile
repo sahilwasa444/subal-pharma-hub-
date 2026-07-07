@@ -1,14 +1,17 @@
-FROM node:20
+FROM node:20-alpine
 
-WORKDIR /app
+WORKDIR /app/backend
 
-# Install the app's root dependencies because the backend uses the root package.json.
-COPY package*.json ./
-RUN npm install --omit=dev
+ENV NODE_ENV=production
 
-# Copy only the backend code into the image.
-COPY backend ./backend
+# Install only the backend runtime dependencies.
+COPY backend/package*.json ./
+RUN npm install --omit=dev --no-audit --no-fund \
+    && npm cache clean --force
+
+# Copy the backend service code after dependencies are installed.
+COPY backend/. .
 
 EXPOSE 5000
 
-CMD ["node", "backend/server.js"]
+CMD ["node", "server.js"]

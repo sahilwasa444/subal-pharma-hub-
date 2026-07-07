@@ -5,8 +5,8 @@ The goal is to keep one retrieval path in the final project:
 
 React UI -> Node controller -> safety layer -> Redis cache -> Python RAG service -> response
 
-The current app still has a temporary Node keyword retriever, but the Python service in `rag-service/` is the
-better long-term source of truth.
+The current app routes through the Python FastAPI service first and keeps the Node keyword retriever only as a
+fallback if the Python service is unavailable.
 
 ## What The RAG Flow Should Do
 
@@ -23,17 +23,18 @@ better long-term source of truth.
 
 ## FastAPI Service Layer
 
-The Python service should be the single retrieval and generation path in the final version.
+The Python service is the single retrieval and generation path for the FastAPI layer.
 
 | File | Work It Does | Status |
 | --- | --- | --- |
-| `rag-service/app.py` | FastAPI entrypoint that exposes the chat API and health check endpoint. | Target to add |
+| `rag-service/app.py` | FastAPI entrypoint that exposes the chat API and health check endpoint. | Active |
 | `rag-service/retrieval.py` | Vector search and fallback ranking over the stored medical chunks. | Keep |
 | `rag-service/prompt_builder.py` | Builds the grounded prompt from the question and retrieved chunks. | Keep |
-| `rag-service/embed.py` | Converts text into embeddings. | Keep |
+| `rag-service/embed.py` | Generates lightweight deterministic embeddings for retrieval and ingestion. | Keep |
 | `rag-service/ingest.py` | Ingestion job that loads PDFs, chunks them, embeds them, and writes them to MongoDB. | Keep |
 | `rag-service/config.py` | Reads MongoDB connection settings from the environment and exposes the collection. | Keep |
-| `rag-service/requirements.txt` | Python dependency list for the FastAPI service and ingestion scripts. | Keep and extend with FastAPI deps |
+| `rag-service/requirements.txt` | Runtime dependency list for the FastAPI service. | Keep slim |
+| `rag-service/requirements-ingest.txt` | Optional dependencies for PDF loading and sample document generation during ingestion. | Optional |
 
 Recommended FastAPI endpoints:
 
@@ -69,20 +70,21 @@ Recommended FastAPI request path:
 | --- | --- | --- |
 | `backend/server.js` | Boots Express, connects MongoDB and Redis, and mounts the routes. | Active |
 | `backend/routes/medicalAssistantRoutes.js` | Exposes `POST /api/medical-assistant/chat`. | Active |
-| `backend/controllers/medicalAssistantController.js` | Validates input, runs safety triage, checks Redis, and returns the response payload. | Active, temporary retrieval path |
+| `backend/controllers/medicalAssistantController.js` | Validates input, runs safety triage, checks Redis, and delegates to FastAPI with local fallback. | Active |
 | `backend/config/redis.js` | Creates the Redis client and connection helper. | Active |
+| `backend/services/ragClient.js` | Calls the FastAPI service and normalizes the response payload. | Active |
 | `backend/services/rag/safety.js` | Checks urgent keywords like chest pain, stroke, seizure, and suicidal thoughts. | Active |
-| `backend/services/rag/retrieval.js` | Temporary keyword-based retrieval and response composition over local medicine data. | Active, should be retired after Python wiring |
-| `backend/services/rag/medicineKnowledge.js` | Small static medicine list used by the temporary retriever. | Active, should be retired after Python wiring |
+| `backend/services/rag/retrieval.js` | Keyword-based fallback retrieval and response composition over local medicine data. | Fallback only |
+| `backend/services/rag/medicineKnowledge.js` | Small static medicine list used by the fallback retriever. | Fallback only |
 
 ### Python RAG Service Files
 
 | File | Work It Does | Status |
 | --- | --- | --- |
-| `rag-service/app.py` | FastAPI API that exposes the final chat contract. | Target to add |
+| `rag-service/app.py` | FastAPI API that exposes the final chat contract. | Active |
 | `rag-service/pdf_loader.py` | Extracts text from PDF files. | Keep |
 | `rag-service/chunker.py` | Splits long text into overlapping chunks. | Keep |
-| `rag-service/embed.py` | Converts text into embeddings. | Keep |
+| `rag-service/embed.py` | Generates lightweight deterministic embeddings for the retrieval pipeline. | Keep |
 | `rag-service/config.py` | Connects to MongoDB and exposes the vector collection. | Keep, but move secrets to env vars |
 | `rag-service/ingest.py` | Loads PDFs, chunks them, embeds them, and stores them in MongoDB. | Keep |
 | `rag-service/retrieval.py` | Performs vector search and keyword fallback ranking. | Keep |
@@ -110,9 +112,10 @@ The live assistant currently behaves like this:
 3. `medicalAssistantController.js` validates the text.
 4. `safety.js` stops urgent cases immediately.
 5. Redis is checked for a cached response.
-6. If the cache misses, the controller calls the temporary keyword retriever in `backend/services/rag/retrieval.js`.
-7. The retriever compares the question against the local medicine list in `medicineKnowledge.js`.
-8. The controller returns `answer`, `citations`, `riskLevel`, and `needsUrgentCare`.
+6. If the cache misses, the controller calls `backend/services/ragClient.js`.
+7. `ragClient.js` sends the request to the FastAPI `/chat` endpoint.
+8. If the FastAPI service is unavailable, the controller falls back to the local keyword retriever.
+9. The controller returns `answer`, `citations`, `confidence`, `riskLevel`, and `needsUrgentCare`.
 
 That is safe for a small demo, but it is not the final RAG architecture.
 
@@ -128,11 +131,10 @@ When the Python service is wired in, the assistant should work like this:
 
 ## What Should Be Built Next
 
-1. Add a Node-to-Python client, for example `backend/services/ragClient.js`.
-2. Expose a Python FastAPI entrypoint, for example `rag-service/app.py`.
-3. Return rich metadata from the RAG service, including sources, page numbers, and confidence.
-4. Update `MedicalAssistant.jsx` to show citations, confidence, and urgent-care banners.
-5. Retire `backend/services/rag/retrieval.js` and `medicineKnowledge.js` after the Python path is live.
+1. Update `MedicalAssistant.jsx` to show citations, confidence, and urgent-care banners.
+2. Verify the FastAPI service in a live environment and tune the confidence thresholds.
+3. Retire `backend/services/rag/retrieval.js` and `medicineKnowledge.js` once the Python path is stable.
+4. Replace the fallback logic with Python-only handling when you no longer need the demo mode.
 
 ## Deployment Flow
 
@@ -170,6 +172,19 @@ The Python RAG service should also read its database and model settings from env
 - Run the full app from `my-react-app/` with `npm run dev`.
 - Run only the backend with `npm run dev:backend`.
 - Run only the frontend with `npm run dev:frontend`.
+
+## Docker
+
+- Run the full stack from `my-react-app/` with `docker compose up --build`.
+- Services run on `redis:6379`, `backend:5000`, `rag-service:8000`, and `frontend:5173`.
+- The backend uses `backend/package.json` so Docker installs only server-side packages.
+- The frontend builds once and serves the compiled app from Nginx instead of running the Vite dev server in production Docker.
+- The RAG runtime image installs only the FastAPI service files and excludes the ingestion-only PDF tooling.
+- The backend reads `my-react-app/backend/.env` for MongoDB and JWT settings.
+- The backend points to the FastAPI service through `RAG_SERVICE_URL=http://rag-service:8000`.
+- The frontend build bakes in `VITE_API_BASE_URL=http://localhost:5000/api` so the browser can talk to the backend on the host port.
+- Use `pip install -r rag-service/requirements.txt -r rag-service/requirements-ingest.txt` if you want to run the ingestion scripts locally.
+- Add `GEMINI_API_KEY` to `my-react-app/backend/.env` if you want the FastAPI service to use Gemini instead of the fallback answer.
 
 ## Reference Docs
 

@@ -1,12 +1,23 @@
-FROM node:20
+FROM node:20-alpine AS builder
 
 WORKDIR /app/frontend
 
+ARG VITE_API_BASE_URL=http://localhost:5000/api
+ENV VITE_API_BASE_URL=${VITE_API_BASE_URL}
+
 COPY frontend/package*.json ./
-RUN npm install
+RUN npm install --no-audit --no-fund \
+    && npm cache clean --force
 
 COPY frontend/. .
 
-EXPOSE 5173
+RUN npm run build
 
-CMD ["./node_modules/.bin/vite", "--host", "0.0.0.0", "--port", "5173", "--strictPort"]
+FROM nginx:1.27-alpine AS runtime
+
+COPY frontend/nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=builder /app/frontend/dist /usr/share/nginx/html
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]

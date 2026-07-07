@@ -8,16 +8,14 @@ import "../styles/Cart.css";
 function Cart() {
   const {
     cart,
+    cartSummary,
     removeFromCart,
     increaseQuantity,
     decreaseQuantity,
     clearCart
   } = useContext(CartContext);
 
-  const totalPrice = cart.reduce(
-    (total, item) => total + item.price * item.quantity,
-    0
-  );
+  const totalPrice = cartSummary.totalPrice;
 
   async function placeOrder() {
     try {
@@ -56,7 +54,7 @@ function Cart() {
           </p>
         </div>
 
-        <span className="badge">{cart.length} item(s)</span>
+        <span className="badge">{cartSummary.itemCount} item(s)</span>
       </section>
 
       {cart.length === 0 ? (
@@ -111,7 +109,7 @@ function Cart() {
             <p className="eyebrow">Summary</p>
             <div className="cart-summary__total">Rs. {totalPrice}</div>
             <p className="page-subtitle">
-              {cart.length} item(s) ready to be checked out.
+              {cartSummary.itemCount} item(s) ready to be checked out.
             </p>
 
             <div className="cart-summary__actions">

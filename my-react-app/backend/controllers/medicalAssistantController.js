@@ -1,11 +1,15 @@
 import crypto from "crypto";
 import { redisClient } from "../config/redis.js";
+import { askRagService } from "../services/ragClient.js";
 import { checkSafety } from "../services/rag/safety.js";
+import { composeMedicalReply } from "../services/rag/retrieval.js";
 
 // Medical assistant controller with safety triage and Redis cache.
+const CACHE_VERSION = "v2";
+
 export async function chat(req, res) {
   try {
-    const { message } = req.body;
+    const { message, conversationId = null, locale = "en-US" } = req.body;
     if (!message || !message.trim()) {
       return res.status(400).json({ error: "Message is required" });
     }
@@ -29,7 +33,7 @@ export async function chat(req, res) {
       .createHash("sha256")
       .update(normalized.toLowerCase())
       .digest("hex");
-    const cacheKey = `medassist:${hash}`;
+    const cacheKey = `medassist:${CACHE_VERSION}:${hash}`;
 
     // Try Redis cache if available
     try {
@@ -45,29 +49,40 @@ export async function chat(req, res) {
       console.warn("Redis check failed, continuing without cache:", redisErr.message);
     }
 
-    // Retrieval stub: placeholder for Atlas Vector Search + hybrid retrieval.
-    // Replace this block with actual retrieval + grounding + LLM call.
-    let answer = `Safe question received: ${message}. Next: implement retrieval layer.`;
-    let citations = [];
-    let riskLevel = "low";
-    let needsUrgentCare = false;
-
-    // Simple keyword hinting example (to be replaced by real retrieval):
-    if (normalized.toLowerCase().includes("ibuprofen")) {
-      answer =
-        "Some adults can take ibuprofen for pain/fever, but check active ingredients in combination medicines and consult a pharmacist if unsure.";
-      citations = [
-        { title: "NHS ibuprofen guidance", url: "https://www.nhs.uk/medicines/ibuprofen/" },
-      ];
-      riskLevel = "low";
+    let retrieval;
+    try {
+      retrieval = await askRagService({
+        message: normalized,
+        conversationId,
+        locale,
+      });
+    } catch (ragErr) {
+      console.warn(
+        "FastAPI RAG request failed, using local fallback:",
+        ragErr.message
+      );
+      const fallback = composeMedicalReply(normalized);
+      retrieval = {
+        ...fallback,
+        confidence: fallback.citations.length ? 0.45 : 0.25,
+        conversationId,
+        requestId: Date.now().toString(),
+        source: "local-fallback",
+      };
     }
 
     const responsePayload = {
-      answer,
-      citations,
-      riskLevel,
-      needsUrgentCare,
-      requestId: Date.now().toString(),
+      answer: retrieval.answer,
+      citations: retrieval.citations,
+      confidence: retrieval.confidence ?? null,
+      riskLevel: retrieval.riskLevel,
+      needsUrgentCare: retrieval.needsUrgentCare,
+      conversationId: retrieval.conversationId || conversationId,
+      requestId: retrieval.requestId || Date.now().toString(),
+      source: retrieval.source || "fastapi",
+      retrievalMode: retrieval.retrievalMode || null,
+      generationProvider: retrieval.generationProvider || null,
+      generationError: retrieval.generationError || null,
     };
 
     // Cache the result in Redis for a short time

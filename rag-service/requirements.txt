@@ -1,2 +1,3 @@
-# RAG Ingestion Pipeline
-# Step 1: JSON to Text Documents
+fastapi>=0.115.0
+pymongo>=4.8.0
+uvicorn[standard]>=0.30.0

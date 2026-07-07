@@ -1,0 +1,567 @@
+.medical-assistant-page {
+  display: grid;
+  gap: 1rem;
+  padding-top: 1rem;
+}
+
+.medical-hero {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(1.4rem, 3vw, 2rem);
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+  gap: 1rem;
+  align-items: stretch;
+  background: linear-gradient(135deg, #081526, #0d4250 56%, #0f766e);
+  color: #fff;
+}
+
+.medical-hero::before,
+.medical-hero::after {
+  content: "";
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(18px);
+  pointer-events: none;
+}
+
+.medical-hero::before {
+  width: 18rem;
+  height: 18rem;
+  top: -5rem;
+  right: -2rem;
+  background: rgba(116, 240, 214, 0.16);
+}
+
+.medical-hero::after {
+  width: 15rem;
+  height: 15rem;
+  left: -3rem;
+  bottom: -6rem;
+  background: rgba(245, 158, 11, 0.16);
+}
+
+.medical-hero__copy,
+.medical-hero__panel {
+  position: relative;
+  z-index: 1;
+}
+
+.medical-hero__copy {
+  display: grid;
+  gap: 1rem;
+  align-content: start;
+}
+
+.medical-hero__title {
+  margin: 0;
+  font-family: "Fraunces", Georgia, serif;
+  font-size: clamp(2.5rem, 5vw, 4.7rem);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+}
+
+.medical-hero__text {
+  margin: 0;
+  max-width: 60ch;
+  color: rgba(255, 255, 255, 0.82);
+  line-height: 1.82;
+  font-size: 1.02rem;
+}
+
+.medical-hero__flags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.medical-hero__flag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.58rem 0.88rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  font-weight: 800;
+  color: #fff;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.medical-hero__panel {
+  padding: 1rem;
+  border-radius: 26px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.medical-flow {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.medical-flow__step {
+  display: flex;
+  gap: 0.8rem;
+  align-items: flex-start;
+  padding: 0.85rem 0.95rem;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.medical-flow__step strong {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.medical-flow__step span {
+  color: rgba(255, 255, 255, 0.82);
+  line-height: 1.6;
+}
+
+.prompt-grid {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.medical-hero__prompts {
+  margin-top: 0.9rem;
+}
+
+.prompt-chip {
+  width: 100%;
+  justify-content: flex-start;
+  padding: 0.8rem 0.95rem;
+  border: 1px solid rgba(17, 122, 113, 0.14);
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--text);
+  text-align: left;
+}
+
+.prompt-chip:hover {
+  transform: translateY(-2px);
+  border-color: rgba(17, 122, 113, 0.22);
+  box-shadow: 0 12px 26px rgba(15, 23, 42, 0.08);
+}
+
+.medical-layout {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.82fr) minmax(0, 1.18fr);
+  gap: 1rem;
+  align-items: start;
+}
+
+.medical-sidebar {
+  display: grid;
+  gap: 1rem;
+  position: sticky;
+  top: 7.5rem;
+  align-self: start;
+}
+
+.medical-panel {
+  padding: 1.05rem;
+  display: grid;
+  gap: 0.8rem;
+}
+
+.medical-panel__title {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 900;
+}
+
+.medical-panel__text {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.75;
+}
+
+.medical-panel--danger {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(254, 242, 242, 0.92));
+  border-color: rgba(239, 68, 68, 0.16);
+}
+
+.medical-panel--danger .medical-panel__title {
+  color: #b91c1c;
+}
+
+.medical-chat {
+  padding: clamp(1.1rem, 2.8vw, 1.5rem);
+  display: grid;
+  gap: 1rem;
+}
+
+.medical-form {
+  display: grid;
+  gap: 0.85rem;
+  padding-bottom: 0.25rem;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.medical-form__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.medical-textarea {
+  min-height: 170px;
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.medical-form__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.medical-form__hint {
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  max-width: 60ch;
+}
+
+.medical-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.medical-thread {
+  display: grid;
+  gap: 0.8rem;
+  padding-top: 0.25rem;
+}
+
+.medical-message {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.75rem;
+  align-items: flex-start;
+}
+
+.medical-message--user {
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.medical-message--user .medical-message__avatar {
+  order: 2;
+}
+
+.medical-message--user .medical-message__content {
+  order: 1;
+  justify-items: end;
+}
+
+.medical-message__avatar {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  background: rgba(17, 122, 113, 0.12);
+  color: var(--primary-strong);
+  border: 1px solid rgba(17, 122, 113, 0.18);
+  flex-shrink: 0;
+}
+
+.medical-message--user .medical-message__avatar {
+  background: linear-gradient(135deg, var(--primary), var(--primary-strong));
+  color: #fff;
+  border-color: transparent;
+}
+
+.medical-message__content {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.medical-message__bubble {
+  width: fit-content;
+  max-width: min(100%, 70ch);
+  padding: 1rem 1.05rem;
+  border-radius: 20px;
+  line-height: 1.75;
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.06);
+  white-space: pre-wrap;
+}
+
+.medical-message--user .medical-message__bubble {
+  background: linear-gradient(135deg, var(--primary), var(--primary-strong));
+  color: #fff;
+  border-color: transparent;
+  border-bottom-right-radius: 8px;
+}
+
+.medical-message--assistant .medical-message__bubble {
+  border-bottom-left-radius: 8px;
+}
+
+.medical-message__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.medical-message__meta .status-chip {
+  font-size: 0.77rem;
+}
+
+.medical-message--loading .medical-message__bubble {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.loading-dots {
+  display: inline-flex;
+  gap: 0.25rem;
+}
+
+.loading-dots span {
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 999px;
+  background: var(--primary);
+  animation: pulseDots 1s infinite ease-in-out;
+}
+
+.loading-dots span:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.loading-dots span:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes pulseDots {
+  0%,
+  80%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.45;
+  }
+
+  40% {
+    transform: translateY(-4px);
+    opacity: 1;
+  }
+}
+
+.response-board {
+  display: grid;
+  gap: 1rem;
+  padding-top: 0.5rem;
+}
+
+.response-card {
+  padding: 1.1rem;
+  display: grid;
+  gap: 0.9rem;
+}
+
+.response-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.response-card__title {
+  margin: 0;
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 1.45rem;
+  line-height: 1.1;
+}
+
+.response-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  justify-content: flex-end;
+}
+
+.response-card__answer {
+  margin: 0;
+  line-height: 1.8;
+  color: var(--text);
+}
+
+.confidence-block {
+  display: grid;
+  gap: 0.45rem;
+  padding: 0.9rem 1rem;
+  border-radius: 18px;
+  background: rgba(17, 122, 113, 0.06);
+  border: 1px solid rgba(17, 122, 113, 0.08);
+}
+
+.confidence-block__row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+  font-size: 0.9rem;
+}
+
+.confidence-track {
+  height: 10px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(15, 23, 42, 0.08);
+}
+
+.confidence-track__bar {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(135deg, var(--primary), #35b8a7);
+}
+
+.response-card__note {
+  margin: 0;
+}
+
+.citation-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.75rem;
+}
+
+.citation-card {
+  padding: 0.95rem 1rem;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  display: grid;
+  gap: 0.4rem;
+}
+
+.citation-card__head {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  align-items: flex-start;
+}
+
+.citation-card__title {
+  margin: 0;
+  font-weight: 900;
+}
+
+.citation-card__meta {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.88rem;
+  line-height: 1.55;
+}
+
+.citation-card__snippet {
+  margin: 0;
+  color: var(--text);
+  line-height: 1.65;
+}
+
+.notice {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  padding: 0.9rem 1rem;
+  border-radius: 18px;
+}
+
+.notice__icon {
+  margin-top: 0.15rem;
+  flex-shrink: 0;
+}
+
+.notice--danger {
+  background: rgba(254, 242, 242, 0.92);
+  border: 1px solid rgba(239, 68, 68, 0.18);
+  color: #991b1b;
+}
+
+.notice--warning {
+  background: rgba(255, 247, 237, 0.94);
+  border: 1px solid rgba(245, 158, 11, 0.18);
+  color: #92400e;
+}
+
+.empty-note {
+  padding: 1rem;
+  border-radius: 18px;
+  border: 1px dashed rgba(17, 122, 113, 0.22);
+  background: rgba(255, 255, 255, 0.7);
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+@media (max-width: 1080px) {
+  .medical-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .medical-sidebar {
+    position: static;
+  }
+}
+
+@media (max-width: 960px) {
+  .medical-hero {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .medical-form__footer,
+  .response-card__header,
+  .medical-form__header {
+    align-items: stretch;
+  }
+
+  .medical-actions {
+    width: 100%;
+  }
+
+  .medical-actions .btn {
+    width: 100%;
+  }
+
+  .medical-message {
+    grid-template-columns: auto 1fr;
+  }
+
+  .medical-message--user {
+    grid-template-columns: 1fr auto;
+  }
+
+  .medical-message__bubble {
+    padding: 0.95rem;
+  }
+
+  .citation-grid {
+    grid-template-columns: 1fr;
+  }
+}
