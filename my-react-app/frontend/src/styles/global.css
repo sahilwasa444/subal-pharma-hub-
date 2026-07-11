@@ -532,9 +532,11 @@ textarea.field {
 }
 
 .stat-card {
-  display: flex;
+  display: grid;
   gap: 0.9rem;
   align-items: flex-start;
+  justify-items: center;
+  text-align: center;
   padding: 1rem 1.05rem;
   border-radius: 20px;
   background: linear-gradient(180deg, var(--surface-strong), var(--surface));
@@ -579,7 +581,8 @@ textarea.field {
 }
 
 .stat-card__trend {
-  margin-left: auto;
+  justify-self: center;
+  margin-left: 0;
   padding: 0.35rem 0.65rem;
   border-radius: 999px;
   font-size: 0.76rem;
