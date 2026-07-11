@@ -188,5 +188,6 @@ The Python RAG service should also read its database and model settings from env
 
 ## Reference Docs
 
+- `../docs/rag-architecture-flow.md` gives the quick architecture and request flow view.
 - `../docs/medical-rag-guide.md` explains the intended medical RAG design.
 - The root `README.md` explains how the repository is organized.
