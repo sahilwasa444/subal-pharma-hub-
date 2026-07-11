@@ -1,19 +1,24 @@
 .medical-assistant-page {
   display: grid;
-  gap: 1rem;
+  gap: 1.1rem;
   padding-top: 1rem;
 }
 
-.medical-hero {
+.medical-assistant-page .medical-hero {
   position: relative;
   overflow: hidden;
-  padding: clamp(1.4rem, 3vw, 2rem);
+  padding: clamp(1.35rem, 3vw, 2.15rem);
   display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+  grid-template-columns: minmax(0, 1.03fr) minmax(340px, 0.97fr);
   gap: 1rem;
   align-items: stretch;
-  background: linear-gradient(135deg, #081526, #0d4250 56%, #0f766e);
+  background:
+    radial-gradient(circle at top right, rgba(113, 239, 213, 0.16), transparent 24%),
+    radial-gradient(circle at bottom left, rgba(245, 158, 11, 0.16), transparent 20%),
+    linear-gradient(135deg, #081424, #0b3340 56%, #0f766e);
   color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 28px 70px rgba(7, 17, 27, 0.2);
 }
 
 .medical-hero::before,
@@ -51,20 +56,33 @@
   display: grid;
   gap: 1rem;
   align-content: start;
+  padding: clamp(1.1rem, 2.4vw, 1.55rem);
+  border-radius: 28px;
+  background: linear-gradient(180deg, rgba(4, 18, 29, 0.62), rgba(7, 35, 49, 0.44));
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.medical-assistant-page .eyebrow {
+  color: rgba(159, 248, 233, 0.9);
 }
 
 .medical-hero__title {
   margin: 0;
   font-family: "Fraunces", Georgia, serif;
   font-size: clamp(2.5rem, 5vw, 4.7rem);
-  line-height: 0.95;
+  line-height: 1.02;
   letter-spacing: -0.02em;
+  text-wrap: balance;
+  color: #fff;
+  text-shadow: 0 12px 30px rgba(2, 12, 20, 0.28);
 }
 
 .medical-hero__text {
   margin: 0;
   max-width: 60ch;
-  color: rgba(255, 255, 255, 0.82);
+  color: rgba(246, 251, 255, 0.86);
   line-height: 1.82;
   font-size: 1.02rem;
 }
@@ -90,12 +108,63 @@
 }
 
 .medical-hero__panel {
+  display: grid;
+  gap: 0.9rem;
   padding: 1rem;
-  border-radius: 26px;
+  border-radius: 28px;
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.12);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
+}
+
+.medical-gallery {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(210px, 0.75fr);
+  gap: 0.85rem;
+  align-items: stretch;
+}
+
+.medical-gallery__main {
+  position: relative;
+  min-height: 20rem;
+}
+
+.medical-gallery__main img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.medical-gallery__badge {
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 2;
+  padding: 0.72rem 0.95rem;
+  border-radius: 999px;
+  background: rgba(6, 18, 29, 0.68);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #fff;
+  font-weight: 800;
+  text-align: center;
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.18);
+}
+
+.medical-gallery__stack {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.medical-gallery__tile {
+  min-height: 9.8rem;
+}
+
+.medical-gallery__tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .medical-flow {
@@ -109,7 +178,7 @@
   align-items: flex-start;
   padding: 0.85rem 0.95rem;
   border-radius: 18px;
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -125,7 +194,7 @@
 }
 
 .medical-flow__step span {
-  color: rgba(255, 255, 255, 0.82);
+  color: rgba(246, 251, 255, 0.84);
   line-height: 1.6;
 }
 
@@ -406,8 +475,9 @@
 
 .response-card__answer {
   margin: 0;
-  line-height: 1.8;
+  line-height: 1.85;
   color: var(--text);
+  font-size: 1.02rem;
 }
 
 .confidence-block {
@@ -532,6 +602,14 @@
   .medical-hero {
     grid-template-columns: 1fr;
   }
+
+  .medical-gallery {
+    grid-template-columns: 1fr;
+  }
+
+  .medical-gallery__main {
+    min-height: 18rem;
+  }
 }
 
 @media (max-width: 640px) {
@@ -559,6 +637,10 @@
 
   .medical-message__bubble {
     padding: 0.95rem;
+  }
+
+  .medical-hero__copy {
+    padding: 1rem;
   }
 
   .citation-grid {

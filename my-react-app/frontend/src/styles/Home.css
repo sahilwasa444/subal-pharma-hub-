@@ -4,17 +4,21 @@
   gap: 1.25rem;
 }
 
-.home-hero {
+.home-page .home-hero {
   position: relative;
   overflow: hidden;
   display: grid;
   grid-template-columns: minmax(0, 1.03fr) minmax(360px, 0.97fr);
   gap: 1.25rem;
   align-items: stretch;
-  padding: clamp(1.4rem, 3vw, 2.35rem);
+  padding: clamp(1.35rem, 3vw, 2.25rem);
   color: #f7fbff;
   background:
+    radial-gradient(circle at top right, rgba(113, 239, 213, 0.16), transparent 24%),
+    radial-gradient(circle at bottom left, rgba(230, 161, 31, 0.18), transparent 20%),
     linear-gradient(145deg, rgba(5, 24, 35, 0.97), rgba(12, 88, 88, 0.92) 52%, rgba(17, 24, 42, 0.98));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 28px 72px rgba(8, 18, 29, 0.22);
 }
 
 .home-hero::before,
@@ -48,23 +52,30 @@
   display: grid;
   align-content: start;
   gap: 1rem;
-  padding-right: 0.25rem;
+  padding: clamp(1.1rem, 2.4vw, 1.55rem);
+  border-radius: 28px;
+  background: linear-gradient(180deg, rgba(4, 18, 29, 0.58), rgba(8, 33, 47, 0.4));
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
 }
 
 .home-hero .eyebrow {
   color: rgba(157, 248, 232, 0.88);
 }
 
-.home-hero .hero-title {
+.home-page .home-hero .hero-title {
   color: #fff;
   font-size: clamp(2.8rem, 5vw, 5rem);
+  line-height: 1.02;
+  text-shadow: 0 12px 30px rgba(2, 12, 20, 0.28);
 }
 
 .hero-lead {
   max-width: 62ch;
   margin: 0;
   line-height: 1.8;
-  color: rgba(244, 250, 255, 0.82);
+  color: rgba(246, 251, 255, 0.86);
   font-size: 1.05rem;
 }
 
@@ -84,7 +95,7 @@
 .hero-metric {
   padding: 1rem;
   border-radius: 20px;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.11);
   border: 1px solid rgba(255, 255, 255, 0.13);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
@@ -113,7 +124,7 @@
 
 .home-visual__main {
   position: relative;
-  min-height: 34rem;
+  min-height: 35rem;
 }
 
 .home-visual__main img {
@@ -158,6 +169,7 @@
   margin: 0;
   font-size: 1.2rem;
   line-height: 1.2;
+  color: var(--text);
 }
 
 .home-note p {
@@ -186,6 +198,7 @@
   margin: 0;
   color: var(--muted);
   line-height: 1.8;
+  font-size: 0.98rem;
 }
 
 .promise-grid {
@@ -283,5 +296,9 @@
 @media (max-width: 640px) {
   .hero-metrics {
     grid-template-columns: 1fr;
+  }
+
+  .home-copy {
+    padding: 1rem;
   }
 }

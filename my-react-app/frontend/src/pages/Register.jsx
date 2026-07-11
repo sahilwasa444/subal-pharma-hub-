@@ -50,6 +50,12 @@ function Register() {
             Register once to save your cart, place protected orders, and return
             to the medicines you rely on without starting over.
           </p>
+
+          <div className="auth-points">
+            <div className="auth-point">Save carts and revisit them later</div>
+            <div className="auth-point">Keep your order history in one place</div>
+            <div className="auth-point">Move securely across devices</div>
+          </div>
         </div>
 
         <div className="auth-visual">

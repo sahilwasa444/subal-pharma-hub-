@@ -12,6 +12,9 @@ import {
   FaTrash,
   FaUser
 } from "react-icons/fa";
+import pharmacyInteriorImage from "../assets/pharmacy-interior.jpg";
+import pharmacyShelfImage from "../assets/pharmacy-shelf.jpg";
+import pillBottleImage from "../assets/medicine-pill-bottle.jpg";
 import api from "../services/api";
 import "../styles/MedicalAssistant.css";
 
@@ -225,6 +228,33 @@ function MedicalAssistant() {
         </div>
 
         <div className="medical-hero__panel">
+          <div className="medical-gallery">
+            <div className="medical-gallery__main media-frame">
+              <img
+                src={pharmacyShelfImage}
+                alt="Pharmacy shelves stocked with trusted medicine boxes"
+              />
+              <div className="medical-gallery__badge">
+                Trusted sources, clear guidance
+              </div>
+            </div>
+
+            <div className="medical-gallery__stack">
+              <div className="medical-gallery__tile media-frame">
+                <img
+                  src={pillBottleImage}
+                  alt="Medicine capsules spilling from a white bottle"
+                />
+              </div>
+              <div className="medical-gallery__tile media-frame">
+                <img
+                  src={pharmacyInteriorImage}
+                  alt="A modern pharmacy interior with stocked medicine shelves"
+                />
+              </div>
+            </div>
+          </div>
+
           <div className="medical-flow">
             <div className="medical-flow__step">
               <strong>1</strong>
