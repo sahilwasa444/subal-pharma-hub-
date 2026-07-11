@@ -11,7 +11,9 @@ import ProductDetails from "./pages/ProductDetails";
 import MedicalAssistant from "./pages/MedicalAssistant";
 import Navbar from "./components/Navbar";
 import Login from "./pages/login";
+import ForgotPassword from "./pages/ForgotPassword";
 import Register from "./pages/Register";
+import ResetPassword from "./pages/ResetPassword";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 const pageVariants = {
@@ -47,7 +49,9 @@ function AnimatedRoutes() {
       >
         <Routes location={location}>
           <Route path="/login" element={<Login />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
           <Route path="/" element={<Home />} />
           <Route path="/products/:id" element={<ProductDetails />} />
           <Route path="/products" element={<Product />} />

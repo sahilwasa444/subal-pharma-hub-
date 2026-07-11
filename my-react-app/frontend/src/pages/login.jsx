@@ -111,6 +111,7 @@ function Login() {
               placeholder="Enter Email"
               value={formData.email}
               onChange={handleChange}
+              required
             />
           </div>
 
@@ -125,6 +126,7 @@ function Login() {
               placeholder="Enter Password"
               value={formData.password}
               onChange={handleChange}
+              required
             />
           </div>
 
@@ -132,6 +134,9 @@ function Login() {
             <button className="btn btn--primary" type="submit">
               Login
             </button>
+            <Link className="auth-link" to="/forgot-password">
+              Forgot password?
+            </Link>
             <Link className="auth-link" to="/register">
               Need an account?
             </Link>

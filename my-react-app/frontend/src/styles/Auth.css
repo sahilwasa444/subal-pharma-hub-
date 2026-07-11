@@ -6,6 +6,17 @@
   padding-top: 1rem;
 }
 
+.auth-page--single {
+  grid-template-columns: 1fr;
+  justify-items: center;
+  align-items: center;
+  min-height: calc(100vh - 8rem);
+}
+
+.auth-page--single .auth-card {
+  width: min(100%, 560px);
+}
+
 .auth-page .auth-hero {
   position: relative;
   overflow: hidden;

@@ -68,6 +68,8 @@ export async function chat(req, res) {
         conversationId,
         requestId: Date.now().toString(),
         source: "local-fallback",
+        retrievalMode: "local-fallback",
+        generationError: ragErr.message,
       };
     }
 
