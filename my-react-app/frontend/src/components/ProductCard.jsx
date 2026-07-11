@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Building2, CalendarClock, CircleDollarSign, ShoppingCart } from "lucide-react";
 import "../styles/ProductCard.css";
 
 function ProductCard({ name, price, company, expiry, onAddToCart }) {
@@ -12,13 +13,23 @@ function ProductCard({ name, price, company, expiry, onAddToCart }) {
       <h2 className="product-card__title">{name}</h2>
 
       <div className="product-card__details">
-        <p className="product-card__price">Rs. {price}</p>
-        <p>Company: {company}</p>
-        <p>Expiry: {expiry}</p>
+        <p className="product-card__price">
+          <CircleDollarSign size={16} aria-hidden="true" />
+          <span>Rs. {price}</span>
+        </p>
+        <p>
+          <Building2 size={14} aria-hidden="true" />
+          <span>{company}</span>
+        </p>
+        <p>
+          <CalendarClock size={14} aria-hidden="true" />
+          <span>Expiry {expiry}</span>
+        </p>
       </div>
 
       <button className="btn btn--primary product-card__button" onClick={onAddToCart}>
-        Add To Cart
+        <ShoppingCart size={16} aria-hidden="true" />
+        Add to cart
       </button>
     </motion.article>
   );

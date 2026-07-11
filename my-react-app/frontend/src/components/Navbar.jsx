@@ -3,17 +3,18 @@ import { useContext } from "react";
 import { CartContext } from "../context/cartcontext";
 import { AuthContext } from "../context/AuthContext";
 import {
-  FaBox,
-  FaClipboardList,
-  FaHome,
-  FaInfoCircle,
-  FaPills,
-  FaPlusCircle,
-  FaShoppingCart,
-  FaSignOutAlt,
-  FaUser,
-  FaNotesMedical
-} from "react-icons/fa";
+  Box,
+  ClipboardList,
+  CircleUserRound,
+  Home,
+  Info,
+  LogOut,
+  PackagePlus,
+  Pill,
+  ShoppingCart,
+  Sparkles,
+  Stethoscope
+} from "lucide-react";
 import "../styles/Navbar.css";
 
 function Navbar() {
@@ -28,29 +29,29 @@ function Navbar() {
     <nav className="site-nav">
       <Link to="/" className="brand" aria-label="Subal Pharma home">
         <span className="brand__mark">
-          <FaPills aria-hidden="true" />
+          <Pill aria-hidden="true" />
         </span>
         <span className="brand__text">
           <span>Subal Pharma</span>
-          <small>care that feels calm</small>
+          <small>premium healthcare commerce</small>
         </span>
       </Link>
 
       <div className="nav-links">
         <NavLink to="/" end className={linkClass}>
-          <FaHome aria-hidden="true" />
+          <Home aria-hidden="true" />
           <span>Home</span>
         </NavLink>
         <NavLink to="/products" className={linkClass}>
-          <FaBox aria-hidden="true" />
+          <Box aria-hidden="true" />
           <span>Products</span>
         </NavLink>
         <NavLink to="/about" className={linkClass}>
-          <FaInfoCircle aria-hidden="true" />
+          <Info aria-hidden="true" />
           <span>About</span>
         </NavLink>
         <NavLink to="/medical-assistant" className={linkClass}>
-          <FaNotesMedical aria-hidden="true" />
+          <Stethoscope aria-hidden="true" />
           <span>Medical Assistant</span>
         </NavLink>
       </div>
@@ -58,7 +59,7 @@ function Navbar() {
       <div className="nav-actions">
         <NavLink to="/cart" className={linkClass}>
           <span className="nav-cart">
-            <FaShoppingCart aria-hidden="true" />
+            <ShoppingCart aria-hidden="true" />
             <span>Cart</span>
             <span className="nav-cart__count">{cartSummary.itemCount}</span>
           </span>
@@ -68,31 +69,31 @@ function Navbar() {
           <>
             {user.role === "admin" && (
               <NavLink to="/admin/products" className={linkClass}>
-                <FaPlusCircle aria-hidden="true" />
+                <PackagePlus aria-hidden="true" />
                 <span>Manage Products</span>
               </NavLink>
             )}
             <NavLink to="/orders" className={linkClass}>
-              <FaClipboardList aria-hidden="true" />
+              <ClipboardList aria-hidden="true" />
               <span>Orders</span>
             </NavLink>
             <span className="nav-pill">
-              <FaUser aria-hidden="true" />
+              <CircleUserRound aria-hidden="true" />
               <span>Hi, {user.name}</span>
             </span>
             <button className="nav-button" onClick={logout}>
-              <FaSignOutAlt aria-hidden="true" />
+              <LogOut aria-hidden="true" />
               <span>Logout</span>
             </button>
           </>
         ) : (
           <>
             <NavLink to="/login" className={linkClass}>
-              <FaUser aria-hidden="true" />
+              <CircleUserRound aria-hidden="true" />
               <span>Login</span>
             </NavLink>
             <NavLink to="/register" className={linkClass}>
-              <FaUser aria-hidden="true" />
+              <Sparkles aria-hidden="true" />
               <span>Register</span>
             </NavLink>
           </>

@@ -1,5 +1,23 @@
 .orders-page {
   padding-top: 1rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.orders-hero {
+  display: grid;
+  gap: 1rem;
+  padding: clamp(1.35rem, 3vw, 1.95rem);
+}
+
+.orders-hero__copy {
+  display: grid;
+  gap: 0.7rem;
+  max-width: 72ch;
+}
+
+.orders-hero__stats {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .orders-grid {
@@ -23,6 +41,7 @@
 
 .order-card__id {
   font-weight: 800;
+  letter-spacing: -0.02em;
 }
 
 .order-card__meta {
@@ -37,8 +56,14 @@
   align-items: center;
   padding: 0.4rem 0.72rem;
   border-radius: 999px;
-  background: rgba(28, 124, 125, 0.12);
+  background: rgba(37, 99, 235, 0.12);
   color: var(--primary-strong);
   font-size: 0.8rem;
   font-weight: 800;
+}
+
+@media (max-width: 960px) {
+  .orders-hero__stats {
+    grid-template-columns: 1fr;
+  }
 }

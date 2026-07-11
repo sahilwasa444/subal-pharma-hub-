@@ -1,17 +1,17 @@
 import { useEffect, useRef, useState } from "react";
 import {
-  FaCapsules,
-  FaCheckCircle,
-  FaExclamationTriangle,
-  FaInfoCircle,
-  FaPaperPlane,
-  FaRegQuestionCircle,
-  FaRobot,
-  FaShieldAlt,
-  FaStethoscope,
-  FaTrash,
-  FaUser
-} from "react-icons/fa";
+  AlertTriangle,
+  Bot,
+  CircleCheckBig,
+  CircleHelp,
+  Info,
+  Pill,
+  Send,
+  ShieldCheck,
+  Stethoscope,
+  Trash2,
+  UserRound
+} from "lucide-react";
 import pharmacyInteriorImage from "../assets/pharmacy-interior.jpg";
 import pharmacyShelfImage from "../assets/pharmacy-shelf.jpg";
 import pillBottleImage from "../assets/medicine-pill-bottle.jpg";
@@ -189,15 +189,15 @@ function MedicalAssistant() {
 
           <div className="medical-hero__flags">
             <span className="medical-hero__flag">
-              <FaShieldAlt aria-hidden="true" />
+              <ShieldCheck aria-hidden="true" />
               Safety checked
             </span>
             <span className="medical-hero__flag">
-              <FaCapsules aria-hidden="true" />
+              <Pill aria-hidden="true" />
               Medicine focused
             </span>
             <span className="medical-hero__flag">
-              <FaCheckCircle aria-hidden="true" />
+              <CircleCheckBig aria-hidden="true" />
               Citations when available
             </span>
           </div>
@@ -278,7 +278,7 @@ function MedicalAssistant() {
                 className="btn btn--ghost prompt-chip"
                 onClick={() => handlePrompt(prompt)}
               >
-                <FaRegQuestionCircle aria-hidden="true" />
+                <CircleHelp aria-hidden="true" />
                 <span>{prompt}</span>
               </button>
             ))}
@@ -290,7 +290,7 @@ function MedicalAssistant() {
         <aside className="medical-sidebar">
           <article className="card medical-panel">
             <p className="medical-panel__title">
-              <FaStethoscope aria-hidden="true" />
+              <Stethoscope aria-hidden="true" />
               What it does
             </p>
             <p className="medical-panel__text">
@@ -307,7 +307,7 @@ function MedicalAssistant() {
 
           <article className="card medical-panel medical-panel--danger">
             <p className="medical-panel__title">
-              <FaExclamationTriangle aria-hidden="true" />
+              <AlertTriangle aria-hidden="true" />
               Medical safety
             </p>
             <p className="medical-panel__text">
@@ -319,7 +319,7 @@ function MedicalAssistant() {
 
           <article className="card medical-panel">
             <p className="medical-panel__title">
-              <FaInfoCircle aria-hidden="true" />
+              <Info aria-hidden="true" />
               Quick examples
             </p>
             <div className="prompt-grid">
@@ -371,7 +371,7 @@ function MedicalAssistant() {
                   onClick={clearChat}
                   disabled={loading}
                 >
-                  <FaTrash aria-hidden="true" />
+                  <Trash2 aria-hidden="true" />
                   Clear
                 </button>
                 <button
@@ -379,7 +379,7 @@ function MedicalAssistant() {
                   type="submit"
                   disabled={loading || !message.trim()}
                 >
-                  <FaPaperPlane aria-hidden="true" />
+                  <Send aria-hidden="true" />
                   {loading ? "Thinking..." : "Ask assistant"}
                 </button>
               </div>
@@ -394,9 +394,9 @@ function MedicalAssistant() {
               >
                 <div className="medical-message__avatar">
                   {item.role === "assistant" ? (
-                    <FaRobot aria-hidden="true" />
+                    <Bot aria-hidden="true" />
                   ) : (
-                    <FaUser aria-hidden="true" />
+                    <UserRound aria-hidden="true" />
                   )}
                 </div>
 
@@ -427,7 +427,7 @@ function MedicalAssistant() {
             {loading && (
               <article className="medical-message medical-message--assistant medical-message--loading">
                 <div className="medical-message__avatar">
-                  <FaRobot aria-hidden="true" />
+                  <Bot aria-hidden="true" />
                 </div>
                 <div className="medical-message__content">
                   <div className="medical-message__bubble medical-message__bubble--loading">
@@ -449,7 +449,7 @@ function MedicalAssistant() {
             <section className="response-board">
               {latestResponse.needsUrgentCare && (
                 <div className="notice notice--danger">
-                  <FaExclamationTriangle
+                  <AlertTriangle
                     className="notice__icon"
                     aria-hidden="true"
                   />
@@ -465,7 +465,7 @@ function MedicalAssistant() {
 
               {latestResponse.generationError && (
                 <div className="notice notice--warning">
-                  <FaInfoCircle className="notice__icon" aria-hidden="true" />
+                  <Info className="notice__icon" aria-hidden="true" />
                   <div>
                     <strong>Fallback used.</strong>
                     <p>{latestResponse.generationError}</p>

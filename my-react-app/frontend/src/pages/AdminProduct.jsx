@@ -1,6 +1,15 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import api from "../services/api";
+import EmptyState from "../components/ui/EmptyState";
+import StatCard from "../components/ui/StatCard";
+import {
+  Boxes,
+  CircleCheckBig,
+  PencilLine,
+  PlusCircle,
+  Trash2
+} from "lucide-react";
 import "../styles/AdminProduct.css";
 
 const emptyForm = {
@@ -115,19 +124,40 @@ function AdminProduct() {
 
   return (
     <div className="page admin-products-page">
-      <section className="card admin-products-panel">
-        <div className="section__header">
-          <div>
-            <p className="eyebrow">Admin</p>
-            <h1 className="section-title">
-              {editingId ? "Edit Product" : "Add Product"}
-            </h1>
-            <p className="page-subtitle">
-              Create, update, and delete products. Redis cache is cleared after
-              every change.
-            </p>
-          </div>
-          <span className="badge">{editingId ? "Editing mode" : "Create mode"}</span>
+      <section className="card admin-products-panel admin-products-hero">
+        <div className="admin-products-hero__copy">
+          <p className="eyebrow">Admin</p>
+          <h1 className="section-title">
+            {editingId ? "Edit product" : "Add product"}
+          </h1>
+          <p className="page-subtitle">
+            Create, update, and delete products. Redis cache is cleared after
+            every change so the storefront stays in sync.
+          </p>
+        </div>
+
+        <div className="stat-grid stat-grid--three admin-products-hero__stats">
+          <StatCard
+            icon={Boxes}
+            label="Inventory"
+            value={products.length}
+            description="Saved catalog items in MongoDB."
+            tone="blue"
+          />
+          <StatCard
+            icon={CircleCheckBig}
+            label="Mode"
+            value={editingId ? "Editing" : "Create"}
+            description="Current form state."
+            tone="emerald"
+          />
+          <StatCard
+            icon={editingId ? PencilLine : PlusCircle}
+            label="Action"
+            value={editingId ? "Update" : "New item"}
+            description="Use the form below to save changes."
+            tone="amber"
+          />
         </div>
 
         <form className="stack admin-product-form" onSubmit={handleSubmit}>
@@ -210,9 +240,25 @@ function AdminProduct() {
         </div>
 
         {loadingProducts ? (
-          <div className="empty-state">Loading products...</div>
+          <div className="admin-products-skeleton">
+            {Array.from({ length: 4 }).map((_, index) => (
+              <article className="card admin-product-card admin-product-card--skeleton" key={index}>
+                <div className="skeleton skeleton--line" style={{ width: "30%" }} />
+                <div className="skeleton skeleton--line" style={{ width: "75%", height: "1.35rem" }} />
+                <div className="stack">
+                  <div className="skeleton skeleton--line" />
+                  <div className="skeleton skeleton--line" />
+                  <div className="skeleton skeleton--line" />
+                </div>
+              </article>
+            ))}
+          </div>
         ) : products.length === 0 ? (
-          <div className="empty-state">No products found.</div>
+          <EmptyState
+            icon={Trash2}
+            title="No products found"
+            description="Add the first product from the form above to populate the catalog."
+          />
         ) : (
           <div className="admin-products-grid">
             {products.map((product) => (
@@ -242,6 +288,7 @@ function AdminProduct() {
                     type="button"
                     onClick={() => startEdit(product)}
                   >
+                    <PencilLine size={15} aria-hidden="true" />
                     Edit
                   </button>
                   <button
@@ -249,6 +296,7 @@ function AdminProduct() {
                     type="button"
                     onClick={() => handleDelete(product._id)}
                   >
+                    <Trash2 size={15} aria-hidden="true" />
                     Delete
                   </button>
                 </div>

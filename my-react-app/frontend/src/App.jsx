@@ -1,4 +1,5 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { AnimatePresence, motion } from "framer-motion";
 import AdminRoute from "./components/AdminRoute";
 import AdminProduct from "./pages/AdminProduct";
 import Home from "./pages/Home";
@@ -13,12 +14,38 @@ import Login from "./pages/login";
 import Register from "./pages/Register";
 import ProtectedRoute from "./components/ProtectedRoute";
 
-function App() {
+const pageVariants = {
+  initial: {
+    opacity: 0,
+    y: 18,
+    filter: "blur(8px)"
+  },
+  animate: {
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)"
+  },
+  exit: {
+    opacity: 0,
+    y: -12,
+    filter: "blur(8px)"
+  }
+};
+
+function AnimatedRoutes() {
+  const location = useLocation();
+
   return (
-    <BrowserRouter>
-      <Navbar />
-      <main>
-        <Routes>
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={location.pathname}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+        variants={pageVariants}
+        transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+      >
+        <Routes location={location}>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/" element={<Home />} />
@@ -44,6 +71,17 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/medical-assistant" element={<MedicalAssistant />} />
         </Routes>
+      </motion.div>
+    </AnimatePresence>
+  );
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Navbar />
+      <main>
+        <AnimatedRoutes />
       </main>
     </BrowserRouter>
   );

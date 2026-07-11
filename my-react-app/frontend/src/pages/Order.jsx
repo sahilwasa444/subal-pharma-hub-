@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import api from "../services/api";
+import EmptyState from "../components/ui/EmptyState";
+import StatCard from "../components/ui/StatCard";
+import { CalendarClock, ClipboardList, PackageCheck, ShoppingBag } from "lucide-react";
 import "../styles/Orders.css";
 
 function Orders() {
@@ -24,30 +27,60 @@ function Orders() {
     fetchOrders();
   }, []);
 
+  const latestOrderDate = orders.length
+    ? new Date(
+        Math.max(...orders.map((order) => new Date(order.createdAt).getTime()))
+      ).toLocaleDateString()
+    : "—";
+
   return (
     <div className="page orders-page">
-      <section className="section__header">
-        <div>
+      <section className="card orders-hero">
+        <div className="orders-hero__copy">
           <p className="eyebrow">Orders</p>
-          <h1 className="hero-title">My orders</h1>
+          <h1 className="hero-title">A crisp order history that feels easy to review.</h1>
           <p className="page-subtitle">
-            Your recent purchases are shown here in a simple, easy-to-scan list.
+            Your recent purchases are shown here in a simple, easy-to-scan view
+            with the most important details surfaced first.
           </p>
         </div>
 
-        <span className="badge">{orders.length} order(s)</span>
+        <div className="stat-grid stat-grid--three orders-hero__stats">
+          <StatCard
+            icon={ClipboardList}
+            label="Total orders"
+            value={orders.length}
+            description="Purchase history recorded in the account."
+            tone="blue"
+          />
+          <StatCard
+            icon={PackageCheck}
+            label="Placed orders"
+            value={orders.length}
+            description="Ready for delivery or fulfillment."
+            tone="emerald"
+          />
+          <StatCard
+            icon={CalendarClock}
+            label="Latest order"
+            value={latestOrderDate}
+            description="Most recent checkout date."
+            tone="amber"
+          />
+        </div>
       </section>
 
       {orders.length === 0 ? (
-        <div className="card empty-state">
-          <h2 className="section-title">No orders yet</h2>
-          <p className="page-subtitle">
-            Once you place an order, it will appear here for quick review.
-          </p>
-          <Link className="btn btn--primary" to="/products">
-            Browse products
-          </Link>
-        </div>
+        <EmptyState
+          icon={ShoppingBag}
+          title="No orders yet"
+          description="Once you place an order, it will appear here for quick review."
+          action={
+            <Link className="btn btn--primary" to="/products">
+              Browse products
+            </Link>
+          }
+        />
       ) : (
         <div className="orders-grid">
           {orders.map((order) => (
