@@ -148,8 +148,8 @@
   padding: 1rem 1.05rem;
   border-radius: 24px;
   color: var(--text);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(246, 251, 250, 0.92));
-  border: 1px solid rgba(15, 23, 42, 0.08);
+  background: linear-gradient(180deg, var(--surface-strong), var(--surface));
+  border: 1px solid var(--border);
 }
 
 .auth-trust strong {
@@ -170,12 +170,12 @@
   display: grid;
   gap: 1rem;
   align-content: start;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(247, 250, 255, 0.94));
-  border: 1px solid rgba(15, 23, 42, 0.08);
+  background: linear-gradient(180deg, var(--surface-strong), var(--surface));
+  border: 1px solid var(--border);
 }
 
 .auth-page .auth-card.card {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(247, 250, 255, 0.94));
+  background: linear-gradient(180deg, var(--surface-strong), var(--surface));
 }
 
 .auth-card__lead {

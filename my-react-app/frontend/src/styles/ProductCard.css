@@ -4,10 +4,10 @@
   gap: 0.9rem;
   height: 100%;
   padding: 1.35rem;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(246, 249, 255, 0.94));
-  border: 1px solid rgba(15, 23, 42, 0.08);
+  background: linear-gradient(180deg, var(--surface-strong), var(--surface));
+  border: 1px solid var(--border);
   border-radius: 22px;
-  box-shadow: 0 18px 42px rgba(15, 23, 42, 0.08);
+  box-shadow: var(--shadow-sm);
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease,
@@ -38,6 +38,7 @@
   font-size: clamp(1.15rem, 1.9vw, 1.5rem);
   line-height: 1.12;
   letter-spacing: -0.04em;
+  color: var(--text);
 }
 
 .product-card__details {

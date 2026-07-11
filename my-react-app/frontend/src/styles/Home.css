@@ -193,7 +193,7 @@
   padding: 1rem;
   border-radius: 22px;
   background:
-    linear-gradient(180deg, rgba(37, 99, 235, 0.06), rgba(255, 255, 255, 0.8)),
+    linear-gradient(180deg, rgba(37, 99, 235, 0.06), var(--surface-strong)),
     linear-gradient(90deg, rgba(148, 163, 184, 0.08) 1px, transparent 1px),
     linear-gradient(180deg, rgba(148, 163, 184, 0.08) 1px, transparent 1px);
   background-size: auto, 24px 24px, 24px 24px;
@@ -235,8 +235,8 @@
 .home-focus__item {
   padding: 0.95rem 1rem;
   border-radius: 18px;
-  background: rgba(37, 99, 235, 0.05);
-  border: 1px solid rgba(37, 99, 235, 0.08);
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
 }
 
 .home-focus__item strong {
@@ -279,9 +279,9 @@
   gap: 0.7rem;
   padding: 1.1rem;
   border-radius: 22px;
-  background: rgba(255, 255, 255, 0.84);
-  border: 1px solid rgba(15, 23, 42, 0.08);
-  box-shadow: 0 14px 28px rgba(15, 23, 42, 0.05);
+  background: linear-gradient(180deg, var(--surface-strong), var(--surface));
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
 }
 
 .promise-card h3 {

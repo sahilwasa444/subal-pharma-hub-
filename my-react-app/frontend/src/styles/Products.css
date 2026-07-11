@@ -26,10 +26,11 @@
   gap: 1rem;
   align-items: center;
   padding: 1.05rem 1.15rem;
-  background: rgba(255, 255, 255, 0.82);
-  border: 1px solid rgba(15, 23, 42, 0.08);
+  background: linear-gradient(180deg, var(--surface-strong), var(--surface));
+  border: 1px solid var(--border);
   border-radius: 22px;
-  box-shadow: 0 16px 36px rgba(15, 23, 42, 0.06);
+  box-shadow: var(--shadow-sm);
+  color: var(--text);
 }
 
 .products-search {
